@@ -56,4 +56,8 @@ public class VehicleType extends BaseEntity {
 		this.pricePerHour = pricePerHour;
 	}
 
+	public String getNombre() {
+		return getName();
+	}
+
 }

@@ -83,4 +83,14 @@ public class Voucher extends PaymentMean {
 		setDescription(string);
 	}
 
+	public String getCodigo() {
+		return getCode();
+	}
+
+	public String getDescripcion() {
+		return getDescription();
+	}
+	
+	
+
 }

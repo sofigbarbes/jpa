@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import uo.ri.cws.domain.Invoice.InvoiceStatus;
 
-
 /**
  * Para entender mejor estos test repasa el diagrama de estados de una
  * avería en la documentación del problema de referencia

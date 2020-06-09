@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,12 +29,13 @@ public class Invoice extends BaseEntity {
 
 	@OneToMany(mappedBy = "invoice")
 	private Set<Charge> charges = new HashSet<>();
-	@Column(unique=true)
+	@Column(unique = true)
 	private Long number;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	private double amount;
 	private double vat;
+	@Enumerated(EnumType.STRING)
 	private InvoiceStatus status = InvoiceStatus.NOT_YET_PAID;
 
 	public Invoice() {
@@ -57,7 +60,8 @@ public class Invoice extends BaseEntity {
 		this.setStatus(InvoiceStatus.NOT_YET_PAID);
 		for (WorkOrder workorder : workOrders) {
 			if (workorder.getStatus() != WorkOrderStatus.FINISHED) {
-				throw new IllegalStateException("Cannot assigned an invoice to a non finished workorder");
+				throw new IllegalStateException(
+						"Cannot assigned an invoice to a non finished workorder");
 			}
 			Associations.ToInvoice.link(workorder, this);
 			workorder.markAsInvoiced();
@@ -154,7 +158,8 @@ public class Invoice extends BaseEntity {
 		}
 		if (this.date.before(Dates.fromString("1/7/2012"))) {
 			this.vat = 18;
-		} else {
+		}
+		else {
 			this.vat = 21;
 		}
 		this.amount = amount + amount * vat / 100;
@@ -181,7 +186,8 @@ public class Invoice extends BaseEntity {
 	 */
 	public void addWorkOrder(WorkOrder workOrder) {
 		if (this.status != InvoiceStatus.NOT_YET_PAID) {
-			throw new IllegalStateException("The invoice has already been paid");
+			throw new IllegalStateException(
+					"The invoice has already been paid");
 		}
 		Associations.ToInvoice.link(workOrder, this);
 		workOrder.markAsInvoiced();
@@ -197,7 +203,8 @@ public class Invoice extends BaseEntity {
 	 */
 	public void removeWorkOrder(WorkOrder workOrder) {
 		if (this.status != InvoiceStatus.NOT_YET_PAID) {
-			throw new IllegalStateException("The invoice status should be NOT_YET_PAID");
+			throw new IllegalStateException(
+					"The invoice status should be NOT_YET_PAID");
 		}
 		Associations.ToInvoice.unlink(workOrder, this);
 		workOrder.markBackToFinished();

@@ -15,6 +15,16 @@
 		<query>select a from WorkOrder a where a.id in ?1</query>
 	</named-query>
 
+	<named-query name="WorkOrder.findByPlate">
+		<query> select w from WorkOrder w join w.vehicle v where v.plateNumber = ?1</query>
+	</named-query>
+
+	<named-query name="WorkOrder.findNotInvoicedByClientDni">
+		<query> <![CDATA[
+	  select w from WorkOrder w join w.vehicle v where v.client.dni = ?1 and
+	  w.status <> ?2 ]]> </query>
+	</named-query>
+
 	<!-- PaymentMean queries -->
 	<named-query name="PaymentMean.findByInvoiceId">
 		<query>

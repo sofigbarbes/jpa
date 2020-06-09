@@ -15,8 +15,17 @@ public interface WorkOrderRepository extends Repository<WorkOrder> {
 
 	/**
 	 * Find workorders that has not been invoiced, by the lient dni.
+	 * 
 	 * @param dni of the client
 	 * @return list with the workorders
 	 */
 	List<WorkOrder> findNotInvoicedByClientDni(String dni);
+
+	/**
+	 * Find workOrders for the plate specified as a parameter
+	 * 
+	 * @param plate
+	 * @return
+	 */
+	List<WorkOrder> findByPlate(String plate);
 }

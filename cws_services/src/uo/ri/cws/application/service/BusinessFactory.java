@@ -1,5 +1,7 @@
 package uo.ri.cws.application.service;
 
+import java.util.List;
+
 import uo.ri.cws.application.ServiceFactory;
 import uo.ri.cws.application.service.client.ClientCrudService;
 import uo.ri.cws.application.service.client.ClientHistoryService;
@@ -15,6 +17,8 @@ import uo.ri.cws.application.service.vehicletype.VehicleTypeCrudService;
 import uo.ri.cws.application.service.workorder.CloseWorkOrderService;
 import uo.ri.cws.application.service.workorder.ViewAssignedWorkOrdersService;
 import uo.ri.cws.application.service.workorder.WorkOrderCrudService;
+import uo.ri.cws.application.service.workorder.WorkOrderDto;
+import uo.ri.cws.application.service.workorder.crud.WorkOrderCrudServiceImpl;
 
 public class BusinessFactory implements ServiceFactory {
 
@@ -65,7 +69,7 @@ public class BusinessFactory implements ServiceFactory {
 
 	@Override
 	public WorkOrderCrudService forWorkOrderCrudService() {
-		throw new RuntimeException("Not yet implemented");
+		return new WorkOrderCrudServiceImpl();
 	}
 
 	@Override

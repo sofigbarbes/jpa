@@ -11,10 +11,9 @@ import uo.ri.cws.application.service.workorder.WorkOrderDto;
  */
 public interface CreateInvoiceService {
 
-	InvoiceDto createInvoiceFor(List<String> workOrderIds)
-			throws BusinessException;
+	InvoiceDto createInvoiceFor(List<String> workOrderIds) throws BusinessException;
 
-	List<WorkOrderDto> findWorkOrdersByClientDni(String dni)
-			throws BusinessException;
+	List<WorkOrderDto> findWorkOrdersByClientDni(String dni) throws BusinessException;
+
 
 }

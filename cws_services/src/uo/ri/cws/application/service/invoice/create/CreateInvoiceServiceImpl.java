@@ -25,4 +25,5 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 		return executor.execute(new FindWorkOrdersByClientDni(dni));
 	}
 
+
 }

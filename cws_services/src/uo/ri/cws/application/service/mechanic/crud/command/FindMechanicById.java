@@ -21,7 +21,8 @@ public class FindMechanicById implements Command<Optional<MechanicDto>> {
 	public Optional<MechanicDto> execute() throws BusinessException {
 		Optional<Mechanic> mec = repo.findById(id);
 		if (!mec.isPresent()) {
-			throw new BusinessException("There is no mechanic with that id");
+			throw new BusinessException(
+					"There is no mechanic with that id");
 		}
 		Mechanic m = mec.get();
 		MechanicDto res = new MechanicDto();

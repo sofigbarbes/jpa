@@ -2,6 +2,7 @@ package uo.ri.cws.ui.foreman.reception;
 
 import alb.util.menu.BaseMenu;
 import alb.util.menu.NotYetImplementedAction;
+import uo.ri.cws.ui.foreman.reception.action.RegisterWorkOrderAction;
 
 public class ReceptionMenu extends BaseMenu {
 
@@ -9,7 +10,7 @@ public class ReceptionMenu extends BaseMenu {
 		menuOptions = new Object[][] { 
 			{"Foreman > Vehicle reception", null},
 			
-			{"Register work order", 	NotYetImplementedAction.class }, 
+			{"Register work order", 	RegisterWorkOrderAction.class }, 
 			{"Update workorder", 		NotYetImplementedAction.class },
 			{"Remove workorder", 		NotYetImplementedAction.class },
 			{"", null},

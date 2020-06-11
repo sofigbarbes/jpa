@@ -10,7 +10,7 @@ import uo.ri.cws.application.service.invoice.CreateInvoiceService;
 import uo.ri.cws.application.service.workorder.WorkOrderDto;
 import uo.ri.cws.ui.util.Printer;
 
-public class FindNotInvoicedWorkOrders implements Action {
+public class FindNotInvoicedWorkOrdersAction implements Action {
 
 	@Override
 	public void execute() throws BusinessException {

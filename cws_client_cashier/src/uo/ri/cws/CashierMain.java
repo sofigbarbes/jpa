@@ -11,10 +11,7 @@ import uo.ri.cws.ui.MainMenu;
 public class CashierMain {
 
 	public static void main(String[] args) {
-		new CashierMain()
-				.config()
-				.run()
-				.close();
+		new CashierMain().config().run().close();
 	}
 
 	private CashierMain config() {
@@ -24,7 +21,7 @@ public class CashierMain {
 
 		return this;
 	}
-	
+
 	public CashierMain run() {
 		try {
 			new MainMenu().execute();

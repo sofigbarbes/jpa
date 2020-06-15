@@ -25,6 +25,19 @@
 	  w.status <> ?2 ]]> </query>
 	</named-query>
 
+	<named-query name="WorkOrder.findByVehicleAndDescription">
+		<query> <![CDATA[
+	  select w from WorkOrder w join w.vehicle v where v.id = ?1 and
+	  w.description = ?2 ]]> </query>
+	</named-query>
+
+	<named-query name="WorkOrder.findUnfinished">
+		<query>
+	  select w from WorkOrder w where w.status = ?1 or w.status = ?2
+	  </query>
+	</named-query>
+
+
 	<!-- PaymentMean queries -->
 	<named-query name="PaymentMean.findByInvoiceId">
 		<query>

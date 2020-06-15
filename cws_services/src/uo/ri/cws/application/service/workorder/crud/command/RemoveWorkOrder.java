@@ -5,11 +5,10 @@ import java.util.Optional;
 import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.WorkOrderRepository;
 import uo.ri.cws.application.service.BusinessException;
-import uo.ri.cws.application.service.workorder.WorkOrderDto;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.WorkOrder;
 
-public class RemoveWorkOrder implements Command<WorkOrderDto> {
+public class RemoveWorkOrder implements Command<Void> {
 
 	String id;
 
@@ -20,17 +19,15 @@ public class RemoveWorkOrder implements Command<WorkOrderDto> {
 	}
 
 	@Override
-	public WorkOrderDto execute() throws BusinessException {
+	public Void execute() throws BusinessException {
 		validate();
-		WorkOrderDto res = new WorkOrderDto();
 		Optional<WorkOrder> woToRemoveOp = woRepo.findById(id);
 		
 		checkInDb(woToRemoveOp);
 		
 		WorkOrder woToRemove = woToRemoveOp.get();
-		res.id = id;
 		woRepo.remove(woToRemove);
-		return res;
+		return null;
 
 	}
 

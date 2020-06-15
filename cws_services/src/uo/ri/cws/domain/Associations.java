@@ -158,5 +158,47 @@ public class Associations {
 		}
 
 	}
+	public static class Certify {
+
+		public static void link(Mechanic mechanic, Certificate certificate,
+				VehicleType vehicleType) {
+			certificate._setMechanic(mechanic);
+			certificate._setVehicleType(vehicleType);
+			mechanic._getCertificates().add(certificate);
+			vehicleType._getCertificates().add(certificate);
+		}
+
+	}
+	public static class Enroll {
+		public static void link(Mechanic mechanic, Enrollment enrollment,
+				Course course) {
+			enrollment._setCourse(course);
+			enrollment._setMechanic(mechanic);
+			mechanic._getEnrollments().add(enrollment);
+			course._getEnrollments().add(enrollment);
+		}
+	}
+
+	public static class Dedicate {
+
+		public static void link(Dedication dedication,
+				VehicleType vehicleType) {
+			dedication._setVehicleType(vehicleType);
+			vehicleType._getDedications().add(dedication);
+		}
+
+		public static void link(Course course, Dedication d) {
+			d._setCourse(course);
+			course._getDedications().add(d);
+		}
+
+		public static void unlink(Dedication dedication) {
+			dedication.getCourse()._getDedications().remove(dedication);
+			dedication.getVehicleType()._getDedications().remove(dedication);
+			dedication._setCourse(null);
+			dedication._setVehicleType(null);
+		}
+
+	}
 
 }

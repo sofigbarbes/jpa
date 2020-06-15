@@ -58,63 +58,77 @@ public class WorkOrder extends BaseEntity {
 
 	}
 
-	public Set<Intervention> getInterventions() {
+	public Set<Intervention> getInterventions()
+	{
 		return new HashSet<>(interventions);
 	}
 
-	public Set<Intervention> _getInterventions() {
+	Set<Intervention> _getInterventions()
+	{
 		return interventions;
 	}
 
-	public void _setMechanic(Mechanic mechanic) {
+	void _setMechanic(Mechanic mechanic)
+	{
 		this.mechanic = mechanic;
 	}
 
-	public Vehicle getVehicle() {
+	public Vehicle getVehicle()
+	{
 		return vehicle;
 	}
 
-	public void _setVehicle(Vehicle vehicle) {
+	void _setVehicle(Vehicle vehicle)
+	{
 		this.vehicle = vehicle;
 	}
 
-	public Invoice getInvoice() {
+	public Invoice getInvoice()
+	{
 		return invoice;
 	}
 
-	public void _setInvoice(Invoice invoice) {
+	void _setInvoice(Invoice invoice)
+	{
 		this.invoice = invoice;
 	}
 
-	public Date getDate() {
+	public Date getDate()
+	{
 		return new Date(date.getTime());
 	}
 
-	public String getDescription() {
+	public String getDescription()
+	{
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
 
-	public double getAmount() {
+	public double getAmount()
+	{
 		return amount;
 	}
 
-	public WorkOrderStatus getStatus() {
+	public WorkOrderStatus getStatus()
+	{
 		return status;
 	}
 
 	/**
-	 * Changes it to INVOICED state given the right conditions This method is called
-	 * from Invoice.addWorkOrder(...)
+	 * Changes it to INVOICED state given the right conditions This method is
+	 * called from Invoice.addWorkOrder(...)
 	 *
 	 * @see State diagrams on the problem statement document
-	 * @throws IllegalStateException if - The work order is not FINISHED, or - The
-	 *                               work order is not linked with the invoice
+	 * @throws IllegalStateException if - The work order is not FINISHED, or -
+	 *                               The work order is not linked with the
+	 *                               invoice
 	 */
-	public void markAsInvoiced() {
+	public void markAsInvoiced()
+	{
 		throwIfStatusNot(WorkOrderStatus.FINISHED);
 		throwIfNotLinkedWithInvoice();
 		this.status = WorkOrderStatus.INVOICED;
@@ -122,8 +136,10 @@ public class WorkOrder extends BaseEntity {
 
 	}
 
-	private void throwIfNotLinkedWithInvoice() {
-		if (this.invoice == null) {
+	private void throwIfNotLinkedWithInvoice()
+	{
+		if (this.invoice == null)
+		{
 			throw new IllegalStateException("Not assigned");
 		}
 	}
@@ -133,11 +149,12 @@ public class WorkOrder extends BaseEntity {
 	 * amount
 	 *
 	 * @see State diagrams on the problem statement document
-	 * @throws IllegalStateException if - The work order is not in ASSIGNED state,
-	 *                               or - The work order is not linked with a
-	 *                               mechanic
+	 * @throws IllegalStateException if - The work order is not in ASSIGNED
+	 *                               state, or - The work order is not linked
+	 *                               with a mechanic
 	 */
-	public void markAsFinished() {
+	public void markAsFinished()
+	{
 		throwIfStatusNot(WorkOrderStatus.ASSIGNED);
 		checkLinkedToMechanic();
 		this.status = WorkOrderStatus.FINISHED;
@@ -145,43 +162,51 @@ public class WorkOrder extends BaseEntity {
 
 	}
 
-	private void computeAmount() {
+	private void computeAmount()
+	{
 		this.amount = 0;
-		for (Intervention intervention : interventions) {
+		for (Intervention intervention : interventions)
+		{
 			this.amount += intervention.getAmount();
 		}
 	}
 
 	/**
-	 * Changes it back to FINISHED state given the right conditions This method is
-	 * called from Invoice.removeWorkOrder(...)
+	 * Changes it back to FINISHED state given the right conditions This method
+	 * is called from Invoice.removeWorkOrder(...)
 	 *
 	 * @see State diagrams on the problem statement document
-	 * @throws IllegalStateException if - The work order is not INVOICED, or - The
-	 *                               work order is still linked with the invoice
+	 * @throws IllegalStateException if - The work order is not INVOICED, or -
+	 *                               The work order is still linked with the
+	 *                               invoice
 	 */
-	public void markBackToFinished() {
-		if (this.status != WorkOrderStatus.INVOICED) {
+	public void markBackToFinished()
+	{
+		if (this.status != WorkOrderStatus.INVOICED)
+		{
 			throw new IllegalStateException("The workorder is not invoiced");
 		}
 
-		if (this.mechanic != null) {
-			throw new IllegalArgumentException("The workorder is still linked to a mechanic");
+		if (this.mechanic != null)
+		{
+			throw new IllegalArgumentException(
+					"The workorder is still linked to a mechanic");
 		}
 		this.status = WorkOrderStatus.FINISHED;
 
 	}
 
 	/**
-	 * Links (assigns) the work order to a mechanic and then changes its status to
-	 * ASSIGNED
+	 * Links (assigns) the work order to a mechanic and then changes its status
+	 * to ASSIGNED
 	 *
 	 * @see State diagrams on the problem statement document
-	 * @throws IllegalStateException if - The work order is not in OPEN status, or -
-	 *                               The work order is already linked with another
-	 *                               mechanic
+	 * @throws IllegalStateException if - The work order is not in OPEN status,
+	 *                               or - The work order is already linked with
+	 *                               another mechanic
 	 */
-	public void assignTo(Mechanic mechanic) {
+	public void assignTo(Mechanic mechanic)
+	{
 		throwIfStatusNot(WorkOrderStatus.OPEN);
 		checkNotLinkedToMechanic();
 
@@ -189,21 +214,30 @@ public class WorkOrder extends BaseEntity {
 		this.status = WorkOrderStatus.ASSIGNED;
 	}
 
-	private void checkNotLinkedToMechanic() {
-		if (this.mechanic != null) {
-			throw new IllegalArgumentException("The workroder is already linked");
+	private void checkNotLinkedToMechanic()
+	{
+		if (this.mechanic != null)
+		{
+			throw new IllegalArgumentException(
+					"The workroder is already linked");
 		}
 	}
 
-	private void checkLinkedToMechanic() {
-		if (this.mechanic == null) {
-			throw new IllegalArgumentException("The workorder is already linked");
+	private void checkLinkedToMechanic()
+	{
+		if (this.mechanic == null)
+		{
+			throw new IllegalArgumentException(
+					"The workorder is already linked");
 		}
 	}
 
-	private void throwIfStatusNot(WorkOrderStatus status) {
-		if (this.status != status) {
-			throw new IllegalArgumentException("The workorder is not " + status);
+	private void throwIfStatusNot(WorkOrderStatus status)
+	{
+		if (this.status != status)
+		{
+			throw new IllegalArgumentException(
+					"The workorder is not " + status);
 		}
 	}
 
@@ -212,26 +246,31 @@ public class WorkOrder extends BaseEntity {
 	 * status back to OPEN
 	 *
 	 * @see State diagrams on the problem statement document
-	 * @throws IllegalStateException if - The work order is not in ASSIGNED status
+	 * @throws IllegalStateException if - The work order is not in ASSIGNED
+	 *                               status
 	 */
-	public void desassign() {
+	public void desassign()
+	{
 
 	}
 
 	/**
-	 * In order to assign a work order to another mechanic is first have to be moved
-	 * back to OPEN state and unlinked from the previous mechanic.
+	 * In order to assign a work order to another mechanic is first have to be
+	 * moved back to OPEN state and unlinked from the previous mechanic.
 	 *
 	 * @see State diagrams on the problem statement document
-	 * @throws IllegalStateException if - The work order is not in FINISHED status
+	 * @throws IllegalStateException if - The work order is not in FINISHED
+	 *                               status
 	 */
-	public void reopen() {
+	public void reopen()
+	{
 		throwIfStatusNot(WorkOrderStatus.FINISHED);
 		this.status = WorkOrderStatus.OPEN;
 		Associations.Assign.unlink(mechanic, this);
 	}
 
-	public Mechanic getMechanic() {
+	public Mechanic getMechanic()
+	{
 		return this.mechanic;
 	}
 

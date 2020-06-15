@@ -12,30 +12,49 @@ public class WorkOrderJpaRepository extends BaseJpaRepository<WorkOrder>
 		implements WorkOrderRepository {
 
 	@Override
-	public List<WorkOrder> findByIds(List<String> idsAveria) {
+	public List<WorkOrder> findByIds(List<String> idsAveria)
+	{
 		return Jpa.getManager()
 				.createNamedQuery("WorkOrder.findByIds", WorkOrder.class)
 				.setParameter(1, idsAveria).getResultList();
 	}
 
-	// select * from tworkorders w, tvehicles v, tclients c where w.vehicle_id
-	// v.id and w.status<>'Invoiced' and v.client_id=c.id and c.dni=111111111
-	// dni a buscar: 909852619
-
 	@Override
-	public List<WorkOrder> findNotInvoicedByClientDni(String dni) {
+	public List<WorkOrder> findNotInvoicedByClientDni(String dni)
+	{
 		return Jpa.getManager()
 				.createNamedQuery("WorkOrder.findNotInvoicedByClientDni",
 						WorkOrder.class)
-				.setParameter(1, dni)
-				.setParameter(2, WorkOrderStatus.INVOICED).getResultList();
+				.setParameter(1, dni).setParameter(2, WorkOrderStatus.INVOICED)
+				.getResultList();
 	}
 
 	@Override
-	public List<WorkOrder> findByPlate(String plate) {
+	public List<WorkOrder> findByPlate(String plate)
+	{
 		return Jpa.getManager()
 				.createNamedQuery("WorkOrder.findByPlate", WorkOrder.class)
 				.setParameter(1, plate).getResultList();
+	}
+
+	@Override
+	public WorkOrder findByVehicleAndDescription(String vehicleId,
+			String description)
+	{
+		return Jpa.getManager()
+				.createNamedQuery("WorkOrder.findByVehicleAndDescription",
+						WorkOrder.class)
+				.setParameter(1, vehicleId).setParameter(2, description)
+				.getSingleResult();
+	}
+
+	@Override
+	public List<WorkOrder> findUnfinished()
+	{
+		return Jpa.getManager()
+				.createNamedQuery("WorkOrder.findUnfinished", WorkOrder.class)
+				.setParameter(1, WorkOrderStatus.ASSIGNED)
+				.setParameter(2, WorkOrderStatus.OPEN).getResultList();
 	}
 
 }

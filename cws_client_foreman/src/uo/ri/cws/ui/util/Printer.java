@@ -1,10 +1,21 @@
 package uo.ri.cws.ui.util;
 
 import alb.util.console.Console;
+import uo.ri.cws.application.service.training.CertificateDto;
 import uo.ri.cws.application.service.vehicle.VehicleDto;
 import uo.ri.cws.application.service.workorder.WorkOrderDto;
 
 public class Printer {
+
+	public static void printCertifiedMechanic(CertificateDto c) {
+	
+		Console.printf("%s\t%-10.10s %-25.25s %-25.25s\n",  
+				c.mechanic.id
+				, c.mechanic.dni
+				, c.mechanic.name  
+				, c.vehicleType.name
+			);
+	}
 
 	public static void printWorkOrderDetail(WorkOrderDto wo) {
 

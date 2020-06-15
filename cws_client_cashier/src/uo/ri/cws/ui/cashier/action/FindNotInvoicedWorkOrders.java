@@ -10,13 +10,13 @@ import uo.ri.cws.application.service.invoice.CreateInvoiceService;
 import uo.ri.cws.application.service.workorder.WorkOrderDto;
 import uo.ri.cws.ui.util.Printer;
 
-public class FindNotInvoicedWorkOrdersAction implements Action {
+public class FindNotInvoicedWorkOrders implements Action {
 
 	@Override
 	public void execute() throws BusinessException {
 		CreateInvoiceService cs = Factory.service.forCreateInvoiceService();
 
-		String dni = Console.readString("Client dni:");
+		String dni = Console.readString("Client dni");
 
 		Console.println("\nInvoice-pending work orders\n");
 

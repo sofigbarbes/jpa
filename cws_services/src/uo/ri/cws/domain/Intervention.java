@@ -49,7 +49,7 @@ public class Intervention extends BaseEntity {
 		return workOrder;
 	}
 
-	public void _setWorkOrder(WorkOrder workOrder) {
+	 void _setWorkOrder(WorkOrder workOrder) {
 		this.workOrder = workOrder;
 	}
 
@@ -57,7 +57,7 @@ public class Intervention extends BaseEntity {
 		return mechanic;
 	}
 
-	public void _setMechanic(Mechanic mechanic) {
+	 void _setMechanic(Mechanic mechanic) {
 		this.mechanic = mechanic;
 	}
 

@@ -25,7 +25,8 @@ public class AddVehicle implements Command<VehicleDto> {
 	}
 
 	@Override
-	public VehicleDto execute() throws BusinessException {
+	public VehicleDto execute() throws BusinessException
+	{
 		validate();
 		checkNotInDB();
 
@@ -34,11 +35,13 @@ public class AddVehicle implements Command<VehicleDto> {
 
 		Optional<VehicleType> vt = typeRepo.findById(vehicleDto.vehicleTypeId);
 		checkVehicleType(vt);
-		v._setVehicleType(vt.get());
+
+		v.setVehicleType(vt.get());
 
 		Optional<Client> c = clientRepo.findById(vehicleDto.clientId);
 		checkClient(c);
-		v._setClient(c.get());
+
+		v.setClient(c.get());
 
 		vehRepo.add(v);
 		vehicleDto.id = vehRepo.findByPlate(vehicleDto.plate).get().getId();
@@ -46,45 +49,57 @@ public class AddVehicle implements Command<VehicleDto> {
 	}
 
 	private void checkVehicleType(Optional<VehicleType> vt)
-			throws BusinessException {
-		if (!vt.isPresent()) {
+			throws BusinessException
+	{
+		if (!vt.isPresent())
+		{
 			throw new BusinessException("The vehicle type id "
 					+ vehicleDto.vehicleTypeId + " is not in the database");
 		}
 	}
 
-	private void checkClient(Optional<Client> c) throws BusinessException {
-		if (!c.isPresent()) {
+	private void checkClient(Optional<Client> c) throws BusinessException
+	{
+		if (!c.isPresent())
+		{
 			throw new BusinessException("The client id " + vehicleDto.clientId
 					+ " is not in the database");
 		}
 	}
 
-	private void validate() throws BusinessException {
-		if (vehicleDto.plate == null || vehicleDto.plate.isEmpty()) {
+	private void validate() throws BusinessException
+	{
+		if (vehicleDto.plate == null || vehicleDto.plate.isEmpty())
+		{
 			throw new BusinessException(
 					"The plate should not be null or empty");
 		}
-		if (vehicleDto.make == null || vehicleDto.make.isEmpty()) {
+		if (vehicleDto.make == null || vehicleDto.make.isEmpty())
+		{
 			throw new BusinessException("The make should not be null or empty");
 		}
-		if (vehicleDto.model == null || vehicleDto.model.isEmpty()) {
+		if (vehicleDto.model == null || vehicleDto.model.isEmpty())
+		{
 			throw new BusinessException(
 					"The model should not be null or empty");
 		}
 		if (vehicleDto.vehicleTypeId == null
-				|| vehicleDto.vehicleTypeId.isEmpty()) {
+				|| vehicleDto.vehicleTypeId.isEmpty())
+		{
 			throw new BusinessException(
 					"The vehicleTypeId should not be null or empty");
 		}
-		if (vehicleDto.clientId == null || vehicleDto.clientId.isEmpty()) {
+		if (vehicleDto.clientId == null || vehicleDto.clientId.isEmpty())
+		{
 			throw new BusinessException(
 					"The clientId should not be null or empty");
 		}
 	}
 
-	private void checkNotInDB() throws BusinessException {
-		if (vehRepo.findByPlate(vehicleDto.plate).isPresent()) {
+	private void checkNotInDB() throws BusinessException
+	{
+		if (vehRepo.findByPlate(vehicleDto.plate).isPresent())
+		{
 			throw new BusinessException(
 					"The vehicle is already present in the database");
 		}

@@ -18,7 +18,7 @@ public class Client extends BaseEntity {
 	private String name;
 
 	private String surname;
-	
+
 	private String email;
 
 	private String phone;
@@ -42,75 +42,93 @@ public class Client extends BaseEntity {
 		this.surname = surname;
 	}
 
-	public String getDni() {
+	public String getDni()
+	{
 		return dni;
 	}
 
-	public void setDni(String dni) {
+	public void setDni(String dni)
+	{
 		this.dni = dni;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public String getSurname() {
+	public String getSurname()
+	{
 		return surname;
 	}
 
-	public void setSurname(String surname) {
+	public void setSurname(String surname)
+	{
 		this.surname = surname;
 	}
 
-	public String getEmail() {
+	public String getEmail()
+	{
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email)
+	{
 		this.email = email;
 	}
 
-	public String getPhone() {
+	public String getPhone()
+	{
 		return phone;
 	}
 
-	public void setPhone(String phone) {
+	public void setPhone(String phone)
+	{
 		this.phone = phone;
 	}
 
-	public Address getAddress() {
+	public Address getAddress()
+	{
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(Address address)
+	{
 		this.address = address;
 	}
 
-	public Set<Vehicle> getVehicles() {
+	public Set<Vehicle> getVehicles()
+	{
 		return new HashSet<>(vehicles);
 	}
 
-	public Set<Vehicle> _getVehicles() {
+	Set<Vehicle> _getVehicles()
+	{
 		return vehicles;
 	}
 
-	public void _setVehicles(Set<Vehicle> vehicles) {
+	void _setVehicles(Set<Vehicle> vehicles)
+	{
 		this.vehicles = vehicles;
 	}
 
-	public Set<PaymentMean> getPaymentMeans() {
+	public Set<PaymentMean> getPaymentMeans()
+	{
 		return new HashSet<>(paymentMeans);
 	}
 
-	public Set<PaymentMean> _getPaymentMeans() {
+	Set<PaymentMean> _getPaymentMeans()
+	{
 		return paymentMeans;
 	}
 
-	public void _setPaymentMeans(Set<PaymentMean> paymentMeans) {
+	void _setPaymentMeans(Set<PaymentMean> paymentMeans)
+	{
 		this.paymentMeans = paymentMeans;
 	}
 

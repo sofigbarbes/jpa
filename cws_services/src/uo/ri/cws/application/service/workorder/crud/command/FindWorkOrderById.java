@@ -9,7 +9,7 @@ import uo.ri.cws.application.service.workorder.WorkOrderDto;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.WorkOrder;
 
-public class FindWorkOrderById implements Command<WorkOrderDto> {
+public class FindWorkOrderById implements Command<Optional<WorkOrderDto>> {
 
 	private String id;
 	private WorkOrderRepository woRepo = Factory.repository.forWorkOrder();
@@ -19,7 +19,7 @@ public class FindWorkOrderById implements Command<WorkOrderDto> {
 	}
 
 	@Override
-	public WorkOrderDto execute() throws BusinessException
+	public Optional<WorkOrderDto> execute() throws BusinessException
 	{
 		WorkOrderDto res = new WorkOrderDto();
 		Optional<WorkOrder> op = woRepo.findById(id);
@@ -32,7 +32,7 @@ public class FindWorkOrderById implements Command<WorkOrderDto> {
 		res.status = w.getStatus().toString();
 		res.vehicleId = w.getVehicle().getId();
 		res.version = w.getVersion();
-		return res;
+		return Optional.ofNullable(res);
 
 	}
 

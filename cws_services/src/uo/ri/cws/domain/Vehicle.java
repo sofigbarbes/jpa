@@ -15,10 +15,13 @@ public class Vehicle extends BaseEntity {
 
 	@ManyToOne
 	private Client client;
+
 	@Column(unique = true)
 	private String plateNumber;
-	@Column(name = "brand")
+
+	@Column(name = "MAKE")
 	private String make;
+
 	private String model;
 
 	public Vehicle() {
@@ -32,52 +35,79 @@ public class Vehicle extends BaseEntity {
 		this.model = model;
 	}
 
-	public String getPlateNumber() {
+	public String getPlateNumber()
+	{
 		return plateNumber;
 	}
 
-	public void setPlateNumber(String plateNumber) {
+	public void setPlateNumber(String plateNumber)
+	{
 		this.plateNumber = plateNumber;
 	}
 
-	public String getMake() {
+	public String getMake()
+	{
 		return make;
 	}
 
-	public void setMake(String make) {
+	public void setMake(String make)
+	{
 		this.make = make;
 	}
 
-	public Client getClient() {
+	public Client getClient()
+	{
 		return client;
 	}
 
-	public void _setClient(Client client) {
+	void _setClient(Client client)
+	{
 		this.client = client;
 	}
 
-	public String getModel() {
+	public void setClient(Client client)
+	{
+		this.client = client;
+	}
+
+	public String getModel()
+	{
 		return model;
 	}
 
-	public Set<WorkOrder> _getWorkOrders() {
+	Set<WorkOrder> _getWorkOrders()
+	{
 		return this.workOrders;
 	}
 
-	public Set<WorkOrder> getWorkOrders() {
+	public Set<WorkOrder> getWorkOrders()
+	{
 		return new HashSet<WorkOrder>(workOrders);
 	}
 
-	public void _setWorkOrders(Set<WorkOrder> workOrders) {
+	void _setWorkOrders(Set<WorkOrder> workOrders)
+	{
 		this.workOrders = workOrders;
 	}
 
-	public VehicleType getVehicleType() {
+	public VehicleType getVehicleType()
+	{
 		return vehicleType;
 	}
 
-	public void _setVehicleType(VehicleType vehicleType) {
+	void _setVehicleType(VehicleType vehicleType)
+	{
 		this.vehicleType = vehicleType;
+	}
+
+	public void setVehicleType(VehicleType vehicleType)
+	{
+		this.vehicleType = vehicleType;
+	}
+
+	public String getPlate()
+	{
+		return this.getPlateNumber();
 	}
 
 }

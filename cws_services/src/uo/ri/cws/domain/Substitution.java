@@ -31,7 +31,7 @@ public class Substitution extends BaseEntity {
 		return intervention;
 	}
 
-	public void _setIntervention(Intervention intervention) {
+	 void _setIntervention(Intervention intervention) {
 		this.intervention = intervention;
 	}
 
@@ -39,7 +39,7 @@ public class Substitution extends BaseEntity {
 		return sparePart;
 	}
 
-	public void _setSparePart(SparePart sparePart) {
+	 void _setSparePart(SparePart sparePart) {
 		this.sparePart = sparePart;
 	}
 

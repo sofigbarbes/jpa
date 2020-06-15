@@ -10,11 +10,13 @@ import uo.ri.cws.ui.MainMenu;
 
 public class CashierMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		new CashierMain().config().run().close();
 	}
 
-	private CashierMain config() {
+	private CashierMain config()
+	{
 		Factory.service = new BusinessFactory();
 		Factory.repository = new JpaRepositoryFactory();
 		Factory.executor = new JpaExecutorFactory();
@@ -22,17 +24,22 @@ public class CashierMain {
 		return this;
 	}
 
-	public CashierMain run() {
-		try {
+	public CashierMain run()
+	{
+		try
+		{
+
 			new MainMenu().execute();
 
-		} catch (RuntimeException rte) {
+		} catch (RuntimeException rte)
+		{
 			Printer.printRuntimeException(rte);
 		}
 		return this;
 	}
 
-	private void close() {
+	private void close()
+	{
 		Jpa.close();
 	}
 

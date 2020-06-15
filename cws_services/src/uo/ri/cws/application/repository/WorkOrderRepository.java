@@ -8,8 +8,8 @@ public interface WorkOrderRepository extends Repository<WorkOrder> {
 
 	/**
 	 * @param idsAveria, lista de los id de avería a recuperar
-	 * @return lista con averias cuyo id aparece en idsAveria, o lista vacía si no
-	 *         hay ninguna
+	 * @return lista con averias cuyo id aparece en idsAveria, o lista vacía si
+	 *         no hay ninguna
 	 */
 	List<WorkOrder> findByIds(List<String> workOrderIds);
 
@@ -28,4 +28,21 @@ public interface WorkOrderRepository extends Repository<WorkOrder> {
 	 * @return
 	 */
 	List<WorkOrder> findByPlate(String plate);
+
+	/**
+	 * Find the worjOrder with vehicle_id and description specified as
+	 * parameters
+	 * 
+	 * @param vehicleId
+	 * @param description
+	 * @return
+	 */
+	WorkOrder findByVehicleAndDescription(String vehicleId, String description);
+
+	/**
+	 * Find in process workOrders i.e with OPEN or ASSIGNED status
+	 * 
+	 * @return
+	 */
+	List<WorkOrder> findUnfinished();
 }

@@ -27,33 +27,40 @@ public abstract class PaymentMean extends BaseEntity {
 	public PaymentMean() {
 	}
 
-	public Client getClient() {
+	public Client getClient()
+	{
 		return client;
 	}
 
-	public Set<Charge> getCharges() {
+	public Set<Charge> getCharges()
+	{
 		return new HashSet<>(charges);
 	}
 
-	public void _setCharges(Set<Charge> charges) {
+	void _setCharges(Set<Charge> charges)
+	{
 		this.charges = charges;
 	}
 
-	public double getAccumulated() {
+	public double getAccumulated()
+	{
 		return accumulated;
 	}
 
-	public void pay(double importe) {
+	public void pay(double importe)
+	{
 		this.accumulated += importe;
 	}
 
-	public Set<Charge> _getCharges() {
+	Set<Charge> _getCharges()
+	{
 		return charges;
 	}
 
 	public abstract boolean isValid();
 
-	public void _setClient(Client client) {
+	void _setClient(Client client)
+	{
 		this.client = client;
 	}
 

@@ -10,7 +10,7 @@ public class SparePart extends BaseEntity {
 
 	@OneToMany(mappedBy = "sparePart")
 	private Set<Substitution> substitutions = new HashSet<Substitution>();
-	@Column(unique=true)
+	@Column(unique = true)
 	private String code;
 	private String description;
 	private double price;
@@ -25,39 +25,48 @@ public class SparePart extends BaseEntity {
 		this.price = price;
 	}
 
-	public Set<Substitution> getSubstitutions() {
+	public Set<Substitution> getSubstitutions()
+	{
 		return new HashSet<Substitution>(substitutions);
 	}
 
-	public Set<Substitution> _getSubstitutions() {
+	Set<Substitution> _getSubstitutions()
+	{
 		return substitutions;
 	}
 
-	public String getCode() {
+	public String getCode()
+	{
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(String code)
+	{
 		this.code = code;
 	}
 
-	public String getDescription() {
+	public String getDescription()
+	{
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
 
-	public double getPrice() {
+	public double getPrice()
+	{
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(double price)
+	{
 		this.price = price;
 	}
 
-	public Set<Substitution> getSustituciones() {
+	public Set<Substitution> getSustituciones()
+	{
 		return this.getSubstitutions();
 	}
 

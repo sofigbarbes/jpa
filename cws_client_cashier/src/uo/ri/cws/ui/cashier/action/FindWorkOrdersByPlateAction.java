@@ -12,21 +12,24 @@ import uo.ri.cws.ui.util.Printer;
 public class FindWorkOrdersByPlateAction implements Action {
 
 	@Override
-	public void execute() throws Exception {
-		WorkOrderCrudService cs = Factory.service.forWorkOrderCrudService();
+	public void execute() throws Exception
+	{
+		WorkOrderCrudService cs = Factory.service.forWorkOrderService();
 
-		String plate = Console.readString("Client plate:");
+		String plate = Console.readString("Client plate");
 
 		Console.println("\nWorkOrders for plate " + plate + "\n");
 
-		List<WorkOrderDto> reps = cs.findWorkOrderByPlate(plate);
+		List<WorkOrderDto> reps = cs.findWorkOrdersByPlateNumber(plate);
 
-		if (reps.size() == 0) {
+		if (reps.size() == 0)
+		{
 			Console.printf("There is no work orders for that plate\n");
 			return;
 		}
 
-		for (WorkOrderDto rep : reps) {
+		for (WorkOrderDto rep : reps)
+		{
 			Printer.printWorkOrder(rep);
 		}
 	}

@@ -18,7 +18,8 @@ public class AddMechanic implements Command<MechanicDto> {
 		this.dto = mecanico;
 	}
 
-	public MechanicDto execute() throws BusinessException {
+	public MechanicDto execute() throws BusinessException
+	{
 		validateNulls();
 		checkNotInDB();
 		Mechanic mechanic = new Mechanic(dto.dni, dto.name, dto.surname);
@@ -27,21 +28,29 @@ public class AddMechanic implements Command<MechanicDto> {
 		return dto;
 	}
 
-	private void checkNotInDB() throws BusinessException {
+	private void checkNotInDB() throws BusinessException
+	{
 		Optional<Mechanic> mec = repo.findByDni(dto.dni);
-		if (mec != null) {
-			throw new BusinessException("The mechanic with dni " + dto.dni + " is already in the database");
+		//System.out.println(mec.get().getDni());
+		if (mec.isPresent())
+		{
+			throw new BusinessException("The mechanic with dni " + dto.dni
+					+ " is already in the database");
 		}
 	}
 
-	private void validateNulls() throws BusinessException {
-		if (dto.dni == null || dto.dni == "") {
+	private void validateNulls() throws BusinessException
+	{
+		if (dto.dni == null || dto.dni == "")
+		{
 			throw new BusinessException("The dni cant be null or empty");
 		}
-		if (dto.name == null || dto.name == "") {
+		if (dto.name == null || dto.name == "")
+		{
 			throw new BusinessException("The name cant be null or empty");
 		}
-		if (dto.surname == null || dto.surname == "") {
+		if (dto.surname == null || dto.surname == "")
+		{
 			throw new BusinessException("The surname cant be null or empty");
 		}
 	}

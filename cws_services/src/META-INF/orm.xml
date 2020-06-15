@@ -77,6 +77,22 @@
 		<query>select max(f.number) + 1 from Invoice f</query>
 	</named-query>
 
+	<!-- Intervention queries -->
+	<named-query name="Intervention.findByWorkOrderId">
+		<query>select f from Intervention f where f.workOrder.id = ?1</query>
+	</named-query>
+
+	<!-- Certificate queries -->
+	<named-query name="Certificate.findByVehicleTypeId">
+		<query>select f from Certificate f where f.vehicleType.id = ?1</query>
+	</named-query>
+
+	<named-query name="Certificate.findByWorkOrderId">
+		<query>select f from Certificate f join WorkOrder w where w.id = ?1 and
+		w.vehicle.vehicleType.id = f.vehicleType.id</query>
+	</named-query>
+
+
 	<!-- Use this format if your query has numeric comparisons as the one in 
 		this example <named-query name="findItemsOnSaleByCategoryId"> <query> <![CDATA[ 
 		select i from Item i join i.categories c where c.id = ?2 and i.startDate 

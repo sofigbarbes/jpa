@@ -11,5 +11,6 @@ public interface RepositoryFactory {
 	InterventionRepository forIntervention();
 	VehicleRepository forVehicle();
 	VehicleTypeRepository forVehicleType();
+	CertificateRepository forCertificate();
 
 }

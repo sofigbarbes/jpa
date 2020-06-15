@@ -189,7 +189,7 @@ public class WorkOrder extends BaseEntity {
 
 		if (this.mechanic != null)
 		{
-			throw new IllegalArgumentException(
+			throw new IllegalStateException(
 					"The workorder is still linked to a mechanic");
 		}
 		this.status = WorkOrderStatus.FINISHED;
@@ -218,7 +218,7 @@ public class WorkOrder extends BaseEntity {
 	{
 		if (this.mechanic != null)
 		{
-			throw new IllegalArgumentException(
+			throw new IllegalStateException(
 					"The workroder is already linked");
 		}
 	}
@@ -227,7 +227,7 @@ public class WorkOrder extends BaseEntity {
 	{
 		if (this.mechanic == null)
 		{
-			throw new IllegalArgumentException(
+			throw new IllegalStateException(
 					"The workorder is already linked");
 		}
 	}
@@ -236,7 +236,7 @@ public class WorkOrder extends BaseEntity {
 	{
 		if (this.status != status)
 		{
-			throw new IllegalArgumentException(
+			throw new IllegalStateException(
 					"The workorder is not " + status);
 		}
 	}

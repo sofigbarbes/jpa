@@ -26,4 +26,13 @@ public class InterventionJpaRepository
 				.getResultList();
 	}
 
+	@Override
+	public List<Intervention> findByWorkOrderId(String id)
+	{
+		return Jpa.getManager()
+				.createNamedQuery("Intervention.findByWorkOrderId", Intervention.class)
+				.setParameter(1, id)
+				.getResultList();
+	}
+
 }

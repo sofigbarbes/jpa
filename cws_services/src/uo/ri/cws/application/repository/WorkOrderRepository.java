@@ -45,4 +45,5 @@ public interface WorkOrderRepository extends Repository<WorkOrder> {
 	 * @return
 	 */
 	List<WorkOrder> findUnfinished();
+
 }

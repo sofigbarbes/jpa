@@ -19,7 +19,6 @@ public class ListUnfinishedWorkOrders implements Command<List<WorkOrderDto>> {
 	{
 		List<WorkOrder> worKorders = woRepo.findUnfinished();
 		List<WorkOrderDto> res = new ArrayList<WorkOrderDto>();
-		System.out.println("//////////////////////" + worKorders.size());
 		WorkOrderDto dto = new WorkOrderDto();
 		for (WorkOrder w : worKorders)
 		{

@@ -6,7 +6,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import alb.util.assertion.Argument;
-import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.domain.Associations.Charges;
 import uo.ri.cws.domain.Invoice.InvoiceStatus;
 

@@ -134,14 +134,15 @@ public class Course extends BaseEntity {
 	{
 		List<VehicleType> vehicleTypes = new ArrayList<VehicleType>();
 		List<Integer> p = new ArrayList<Integer>();
-
+		if (!dedications.isEmpty())
+		{
+			throw new IllegalStateException(
+					"The course already has dedications");
+		}
 		int total = 0;
-
 		for (Entry<VehicleType, Integer> dedication : percentages.entrySet())
 		{
-			checkExistingDedication(vehicleTypes, dedication.getKey());
 			checkPercentageOver100(total, dedication.getValue());
-
 			vehicleTypes.add(dedication.getKey());
 			p.add(dedication.getValue());
 			total += dedication.getValue();
@@ -162,16 +163,6 @@ public class Course extends BaseEntity {
 		{
 			throw new IllegalArgumentException(
 					"Cannot add dedication (percentage over 100)");
-		}
-	}
-
-	private void checkExistingDedication(List<VehicleType> vehicleTypes,
-			VehicleType key)
-	{
-		if (vehicleTypes.contains(key))
-		{
-			throw new IllegalStateException(
-					"Dedication cannot be added. Already existing dedication");
 		}
 	}
 

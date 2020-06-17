@@ -3,7 +3,6 @@ package uo.ri.cws.extended.course;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
@@ -18,7 +17,7 @@ public class ClearDedicationsTests {
 	private VehicleType car;
 	private VehicleType truck;
 	private Course course;
-
+  
 	@Before
 	public void setUp() throws Exception
 	{

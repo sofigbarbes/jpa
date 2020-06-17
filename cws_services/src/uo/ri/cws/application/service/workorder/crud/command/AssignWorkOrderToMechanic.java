@@ -9,10 +9,12 @@ import uo.ri.cws.application.repository.CertificateRepository;
 import uo.ri.cws.application.repository.MechanicRepository;
 import uo.ri.cws.application.repository.WorkOrderRepository;
 import uo.ri.cws.application.service.BusinessException;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Certificate;
 import uo.ri.cws.domain.Mechanic;
 import uo.ri.cws.domain.WorkOrder;
+import uo.ri.cws.domain.WorkOrder.WorkOrderStatus;
 
 public class AssignWorkOrderToMechanic implements Command<Void> {
 
@@ -34,6 +36,7 @@ public class AssignWorkOrderToMechanic implements Command<Void> {
 	{
 		validate();
 		checkInDB();
+		checkStatus();
 		checkCertifiedMechanic();
 
 		WorkOrder wo = woRepo.findById(workOrderId).get();
@@ -46,13 +49,22 @@ public class AssignWorkOrderToMechanic implements Command<Void> {
 		return null;
 	}
 
+	private void checkStatus() throws BusinessException
+	{
+		BusinessCheck.isTrue(
+				woRepo.findById(workOrderId).get()
+						.getStatus() == WorkOrderStatus.OPEN,
+				"The status should be open");
+		BusinessCheck.isNotEmpty(workOrderId, "hola");
+	}
+
 	private void checkCertifiedMechanic() throws BusinessException
 	{
 		List<Certificate> certsForWorkOrder = certRepo
 				.findByWorkOrderId(workOrderId);
 		for (Certificate c : certsForWorkOrder)
 		{
-			
+
 			if (c.getMechanic().getId().equals(mechanicId))
 				return;
 			else
@@ -78,8 +90,14 @@ public class AssignWorkOrderToMechanic implements Command<Void> {
 		}
 	}
 
-	private void validate()
+	private void validate() throws BusinessException
 	{
+		if (workOrderId.isEmpty())
+		{
+			throw new BusinessException(
+					"The workOrder id shoudlnt be null or empty");
+		}
+
 		Argument.isNotEmpty(workOrderId,
 				"The workOrder id should not be empty");
 		Argument.isNotEmpty(mechanicId, "The mechanic id should not be empty");

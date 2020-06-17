@@ -14,7 +14,8 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "TINTERVENTIONS", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "WORKORDER_ID", "MECHANIC_ID", "DATE" }) })
+		@UniqueConstraint(columnNames = { "WORKORDER_ID", "MECHANIC_ID",
+				"DATE" }) })
 public class Intervention extends BaseEntity {
 
 	@ManyToOne
@@ -45,39 +46,48 @@ public class Intervention extends BaseEntity {
 
 	}
 
-	public WorkOrder getWorkOrder() {
+	public WorkOrder getWorkOrder()
+	{
 		return workOrder;
 	}
 
-	 void _setWorkOrder(WorkOrder workOrder) {
+	void _setWorkOrder(WorkOrder workOrder)
+	{
 		this.workOrder = workOrder;
 	}
 
-	public Mechanic getMechanic() {
+	public Mechanic getMechanic()
+	{
 		return mechanic;
 	}
 
-	 void _setMechanic(Mechanic mechanic) {
+	void _setMechanic(Mechanic mechanic)
+	{
 		this.mechanic = mechanic;
 	}
 
-	public Set<Substitution> getSubstitutions() {
+	public Set<Substitution> getSubstitutions()
+	{
 		return new HashSet<>(substitutions);
 	}
 
-	Set<Substitution> _getSubstitutions() {
+	Set<Substitution> _getSubstitutions()
+	{
 		return (substitutions);
 	}
 
-	public Date getDate() {
+	public Date getDate()
+	{
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Date date)
+	{
 		this.date = date;
 	}
 
-	public int getMinutes() {
+	public int getMinutes()
+	{
 		return minutes;
 	}
 
@@ -86,10 +96,12 @@ public class Intervention extends BaseEntity {
 	 *
 	 * @return
 	 */
-	public double getAmount() {
+	public double getAmount()
+	{
 		double amSubstitutions = 0;
 
-		for (Substitution subst : substitutions) {
+		for (Substitution subst : substitutions)
+		{
 			amSubstitutions += subst.getImporte();
 		}
 
@@ -100,7 +112,8 @@ public class Intervention extends BaseEntity {
 
 	}
 
-	public Set<Substitution> getSustitutions() {
+	public Set<Substitution> getSustitutions()
+	{
 		return this.getSubstitutions();
 	}
 

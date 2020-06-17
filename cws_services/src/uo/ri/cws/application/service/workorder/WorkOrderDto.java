@@ -3,7 +3,7 @@ package uo.ri.cws.application.service.workorder;
 import java.util.Date;
 
 public class WorkOrderDto {
-	
+
 	public String id;
 	public Long version;
 

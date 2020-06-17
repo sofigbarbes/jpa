@@ -39,17 +39,8 @@ public class FindCertificatedByVehicleType
 			MechanicDto mecDto = new MechanicDto();
 			VehicleTypeDto vtDto = new VehicleTypeDto();
 
-			mecDto.dni = c.getMechanic().getDni();
-			mecDto.id = c.getMechanic().getId();
-			mecDto.name = c.getMechanic().getName();
-			mecDto.surname = c.getMechanic().getSurname();
-			mecDto.version = c.getMechanic().getVersion();
-
-			vtDto.id = c.getVehicleType().getId();
-			vtDto.minTrainigHours = c.getVehicleType().getMinTrainingHours();
-			vtDto.name = c.getVehicleType().getName();
-			vtDto.pricePerHour = c.getVehicleType().getPricePerHour();
-			vtDto.version = c.getVehicleType().getVersion();
+			convertMechanicToDto(mecDto, c);
+			convertVehicleTypeToDto(vtDto, c);
 
 			dto.id = c.getId();
 			dto.mechanic = mecDto;
@@ -60,6 +51,26 @@ public class FindCertificatedByVehicleType
 			res.add(dto);
 		}
 		return res;
+	}
+
+	private void convertVehicleTypeToDto(VehicleTypeDto vtDto, Certificate c)
+	{
+		vtDto.id = c.getVehicleType().getId();
+		vtDto.minTrainigHours = c.getVehicleType().getMinTrainingHours();
+		vtDto.name = c.getVehicleType().getName();
+		vtDto.pricePerHour = c.getVehicleType().getPricePerHour();
+		vtDto.version = c.getVehicleType().getVersion();
+
+	}
+
+	private void convertMechanicToDto(MechanicDto mecDto, Certificate c)
+	{
+		mecDto.dni = c.getMechanic().getDni();
+		mecDto.id = c.getMechanic().getId();
+		mecDto.name = c.getMechanic().getName();
+		mecDto.surname = c.getMechanic().getSurname();
+		mecDto.version = c.getMechanic().getVersion();
+
 	}
 
 }

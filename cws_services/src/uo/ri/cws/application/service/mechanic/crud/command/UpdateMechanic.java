@@ -6,6 +6,7 @@ import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.MechanicRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.mechanic.MechanicDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Mechanic;
 
@@ -30,15 +31,12 @@ public class UpdateMechanic implements Command<Void> {
 	}
 
 	private void validate() throws BusinessException {
-		if (dto.dni == null || dto.dni == "") {
-			throw new BusinessException("The dni cant be null or empty");
-		}
-		if (dto.name == null || dto.name == "") {
-			throw new BusinessException("The name cant be null or empty");
-		}
-		if (dto.surname == null || dto.surname == "") {
-			throw new BusinessException("The surname cant be null or empty");
-		}
+		BusinessCheck.isNotEmpty(dto.dni, "The dni should not be empty");
+		BusinessCheck.isNotEmpty(dto.name, "The name should not be empty");
+		BusinessCheck.isNotEmpty(dto.surname, "The name should not be empty");
+		BusinessCheck.isNotNull(dto.dni, "The dni should not be null");
+		BusinessCheck.isNotNull(dto.name, "The name should not be null");
+		BusinessCheck.isNotNull(dto.surname, "The surname should not be null");
 		checkInDatabase();
 	}
 

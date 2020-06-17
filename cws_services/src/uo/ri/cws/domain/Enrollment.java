@@ -55,11 +55,8 @@ public class Enrollment extends BaseEntity {
 
 	private void validateAttendance(int attendance)
 	{
-		if ((attendance < ATTENDANCE_TO_PASS))
-		{
-			throw new IllegalArgumentException(
-					"Attendance should be greater than " + ATTENDANCE_TO_PASS);
-		}
+		Argument.isTrue(attendance >= ATTENDANCE_TO_PASS,
+				"Attendance should be greater than " + ATTENDANCE_TO_PASS);
 
 	}
 

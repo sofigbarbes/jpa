@@ -9,7 +9,7 @@ public class EnrollmentDto {
 
 	public String mechanicId;
 	public String courseId;
-	public int attendance;  	// percentage 0..100
+	public int attendance; // percentage 0..100
 	public boolean passed;
 
 	// Just for listing purposes

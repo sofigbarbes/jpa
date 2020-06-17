@@ -6,6 +6,7 @@ import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.WorkOrderRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.workorder.WorkOrderDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.WorkOrder;
 
@@ -39,9 +40,8 @@ public class FindWorkOrderById implements Command<Optional<WorkOrderDto>> {
 	private void checkInDb(Optional<WorkOrder> optional)
 			throws BusinessException
 	{
-		if (!optional.isPresent())
-			throw new BusinessException("The workOrder is not in the database");
-
+		BusinessCheck.exists(optional,
+				"The workOrder specified is not in the database");
 	}
 
 }

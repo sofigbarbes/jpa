@@ -8,6 +8,7 @@ import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.InterventionRepository;
 import uo.ri.cws.application.repository.WorkOrderRepository;
 import uo.ri.cws.application.service.BusinessException;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Intervention;
 import uo.ri.cws.domain.WorkOrder;
@@ -42,29 +43,24 @@ public class RemoveWorkOrder implements Command<Void> {
 	{
 		List<Intervention> interv = new ArrayList<Intervention>();
 		interv = intRepo.findByWorkOrderId(id);
-		if (interv.size() != 0)
-		{
-			throw new BusinessException(
-					"Workorder cannot be deleted: existing interventions");
-		}
+		BusinessCheck.isTrue(interv.size() == 0,
+				"Workorder cannot be deleted: existing interventions");
+
 	}
 
 	private void checkInDb(Optional<WorkOrder> woToRemoveOp)
 			throws BusinessException
 	{
-		if (!woToRemoveOp.isPresent())
-		{
-			throw new BusinessException(
-					"The workOrder with id " + id + " is not in the database");
-		}
+		BusinessCheck.exists(woToRemoveOp,
+				"The workOrder with id " + id + " is not in the database");
+
 	}
 
 	private void validate() throws BusinessException
 	{
-		if (this.id == null || this.id.isEmpty())
-		{
-			throw new BusinessException("The id cannot be null or empty");
-		}
+		BusinessCheck.isNotEmpty(id, "The id should not be empty");
+		BusinessCheck.isNotNull(id, "The id should not be null");
+
 	}
 
 }

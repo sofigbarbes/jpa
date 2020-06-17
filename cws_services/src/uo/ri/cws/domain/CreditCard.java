@@ -14,48 +14,55 @@ import alb.util.date.Dates;
 @DiscriminatorValue("TCREDITCARDS")
 public class CreditCard extends PaymentMean {
 
-    @Column(unique = true)
+	@Column(unique = true)
 	private String number;
 	private String type;
 	private Date validThru;
 
-    public CreditCard() {
-    }
+	public CreditCard() {
+	}
 
-    public CreditCard(String number, String type, Date validThru) {
-	super();
-	this.number = number;
-	this.type = type;
-	this.validThru = validThru;
-    }
+	public CreditCard(String number, String type, Date validThru) {
+		super();
+		this.number = number;
+		this.type = type;
+		this.validThru = validThru;
+	}
 
-    public String getNumber() {
-	return number;
-    }
+	public String getNumber()
+	{
+		return number;
+	}
 
-    public void setNumber(String number) {
-	this.number = number;
-    }
+	public void setNumber(String number)
+	{
+		this.number = number;
+	}
 
-    public String getType() {
-	return type;
-    }
+	public String getType()
+	{
+		return type;
+	}
 
-    public void setType(String type) {
-	this.type = type;
-    }
+	public void setType(String type)
+	{
+		this.type = type;
+	}
 
-    public Date getValidThru() {
-	return validThru;
-    }
+	public Date getValidThru()
+	{
+		return validThru;
+	}
 
-    public void setValidThru(Date validThru) {
-	this.validThru = validThru;
-    }
+	public void setValidThru(Date validThru)
+	{
+		this.validThru = validThru;
+	}
 
-    @Override
-    public boolean isValid() {
-	return (this.validThru.after(Dates.today()));
-    }
+	@Override
+	public boolean isValid()
+	{
+		return (this.validThru.after(Dates.today()));
+	}
 
 }

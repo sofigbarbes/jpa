@@ -23,7 +23,8 @@ public class MechanicJpaRepository extends BaseJpaRepository<Mechanic>
 	public List<Mechanic> findEnrolledPassedMechanics()
 	{
 		return Jpa.getManager()
-				.createNamedQuery("Mechanic.findEnrolledAndPassed", Mechanic.class)
+				.createNamedQuery("Mechanic.findEnrolledAndPassed",
+						Mechanic.class)
 				.getResultList();
 	}
 

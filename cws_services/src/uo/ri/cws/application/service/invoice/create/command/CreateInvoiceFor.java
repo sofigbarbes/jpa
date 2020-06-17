@@ -7,6 +7,7 @@ import uo.ri.cws.application.repository.InvoiceRepository;
 import uo.ri.cws.application.repository.WorkOrderRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.invoice.InvoiceDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Invoice;
 import uo.ri.cws.domain.WorkOrder;
@@ -51,17 +52,13 @@ public class CreateInvoiceFor implements Command<InvoiceDto> {
 	{
 		for (String id : workOrderIds)
 		{
-			if (!repoWo.findById(id).isPresent())
-			{
-				throw new BusinessException(
-						"There is no workorder for id " + id);
-			}
-			if (repoWo.findById(id).get()
-					.getStatus() != WorkOrderStatus.FINISHED)
-			{
-				throw new BusinessException(
-						"The workorder is not finished yet!");
-			}
+			BusinessCheck.exists(repoWo.findById(id),
+					"There is no workorder for id " + id);
+			BusinessCheck.isTrue(
+					repoWo.findById(id).get()
+							.getStatus() == WorkOrderStatus.FINISHED,
+					"The workorder is not finished yet!");
+
 		}
 	}
 

@@ -16,7 +16,8 @@ public class Substitution extends BaseEntity {
 	public Substitution() {
 	}
 
-	public Substitution(SparePart sparePart, Intervention intervention, int quantity) {
+	public Substitution(SparePart sparePart, Intervention intervention,
+			int quantity) {
 		super();
 		validate(sparePart, intervention, quantity);
 
@@ -27,33 +28,42 @@ public class Substitution extends BaseEntity {
 		Associations.Sustitute.link(sparePart, this, intervention);
 	}
 
-	public Intervention getIntervention() {
+	public Intervention getIntervention()
+	{
 		return intervention;
 	}
 
-	 void _setIntervention(Intervention intervention) {
+	void _setIntervention(Intervention intervention)
+	{
 		this.intervention = intervention;
 	}
 
-	public SparePart getSparePart() {
+	public SparePart getSparePart()
+	{
 		return sparePart;
 	}
 
-	 void _setSparePart(SparePart sparePart) {
+	void _setSparePart(SparePart sparePart)
+	{
 		this.sparePart = sparePart;
 	}
 
-	public int getQuantity() {
+	public int getQuantity()
+	{
 		return quantity;
 	}
 
-	public double getImporte() {
+	public double getImporte()
+	{
 		return quantity * sparePart.getPrice();
 	}
 
-	private void validate(SparePart sparepart, Intervention intervention, int quantity) {
+	private void validate(SparePart sparepart, Intervention intervention,
+			int quantity)
+	{
 		if (quantity <= 0)
-			throw new IllegalArgumentException("The quantity can't be negative");
+			throw new IllegalArgumentException(
+					"The quantity can't be negative");
 	}
 
 }

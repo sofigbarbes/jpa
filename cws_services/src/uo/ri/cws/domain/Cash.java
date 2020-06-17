@@ -15,7 +15,8 @@ public class Cash extends PaymentMean {
 		linkPay();
 	}
 
-	private void linkPay() {
+	private void linkPay()
+	{
 		Associations.Pay.link(this, client);
 	}
 
@@ -23,7 +24,8 @@ public class Cash extends PaymentMean {
 	}
 
 	@Override
-	public boolean isValid() {
+	public boolean isValid()
+	{
 		return true;
 	}
 

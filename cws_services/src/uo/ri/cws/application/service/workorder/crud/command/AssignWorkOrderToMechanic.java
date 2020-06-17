@@ -3,7 +3,6 @@ package uo.ri.cws.application.service.workorder.crud.command;
 import java.util.List;
 import java.util.Optional;
 
-import alb.util.assertion.Argument;
 import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.CertificateRepository;
 import uo.ri.cws.application.repository.MechanicRepository;
@@ -64,7 +63,6 @@ public class AssignWorkOrderToMechanic implements Command<Void> {
 				.findByWorkOrderId(workOrderId);
 		for (Certificate c : certsForWorkOrder)
 		{
-
 			if (c.getMechanic().getId().equals(mechanicId))
 				return;
 			else
@@ -77,32 +75,24 @@ public class AssignWorkOrderToMechanic implements Command<Void> {
 	private void checkInDB() throws BusinessException
 	{
 		Optional<WorkOrder> wo = woRepo.findById(workOrderId);
-		if (!wo.isPresent())
-		{
-			throw new BusinessException(
-					"The workOrder specified is not in the database");
-		}
+		BusinessCheck.exists(wo,
+				"The workOrder specified is not in the database");
+
 		Optional<Mechanic> mec = mecRepo.findById(mechanicId);
-		if (!mec.isPresent())
-		{
-			throw new BusinessException(
-					"The mechanic specified is not in the database");
-		}
+		BusinessCheck.exists(mec,
+				"The mechanic specified is not in the database");
 	}
 
 	private void validate() throws BusinessException
 	{
-		if (workOrderId.isEmpty())
-		{
-			throw new BusinessException(
-					"The workOrder id shoudlnt be null or empty");
-		}
-
-		Argument.isNotEmpty(workOrderId,
+		BusinessCheck.isNotEmpty(workOrderId,
 				"The workOrder id should not be empty");
-		Argument.isNotEmpty(mechanicId, "The mechanic id should not be empty");
-		Argument.isNotNull(workOrderId, "The workOrder id should not be null");
-		Argument.isNotNull(mechanicId, "The mechanic id should not be null");
+		BusinessCheck.isNotEmpty(mechanicId,
+				"The mechanic id should not be empty");
+		BusinessCheck.isNotNull(workOrderId,
+				"The workOrder id should not be null");
+		BusinessCheck.isNotNull(mechanicId,
+				"The mechanic id should not be null");
 
 	}
 

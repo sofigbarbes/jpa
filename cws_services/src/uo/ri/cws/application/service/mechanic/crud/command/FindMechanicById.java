@@ -6,6 +6,7 @@ import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.MechanicRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.mechanic.MechanicDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Mechanic;
 
@@ -18,12 +19,11 @@ public class FindMechanicById implements Command<Optional<MechanicDto>> {
 		this.id = id;
 	}
 
-	public Optional<MechanicDto> execute() throws BusinessException {
+	public Optional<MechanicDto> execute() throws BusinessException
+	{
 		Optional<Mechanic> mec = repo.findById(id);
-		if (!mec.isPresent()) {
-			throw new BusinessException(
-					"There is no mechanic with that id");
-		}
+		BusinessCheck.exists(mec, "There is no mechanic with that id");
+
 		Mechanic m = mec.get();
 		MechanicDto res = new MechanicDto();
 		res.dni = m.getDni();

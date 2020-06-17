@@ -6,6 +6,7 @@ import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.MechanicRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.mechanic.MechanicDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Mechanic;
 
@@ -31,27 +32,20 @@ public class AddMechanic implements Command<MechanicDto> {
 	private void checkNotInDB() throws BusinessException
 	{
 		Optional<Mechanic> mec = repo.findByDni(dto.dni);
-		if (mec.isPresent())
-		{
-			throw new BusinessException("The mechanic with dni " + dto.dni
-					+ " is already in the database");
-		}
+		BusinessCheck.isFalse(mec.isPresent(), "The mechanic with dni "
+				+ dto.dni + " is already in the database");
+
 	}
 
 	private void validateNulls() throws BusinessException
 	{
-		if (dto.dni == null || dto.dni == "")
-		{
-			throw new BusinessException("The dni cant be null or empty");
-		}
-		if (dto.name == null || dto.name == "")
-		{
-			throw new BusinessException("The name cant be null or empty");
-		}
-		if (dto.surname == null || dto.surname == "")
-		{
-			throw new BusinessException("The surname cant be null or empty");
-		}
+		BusinessCheck.isNotEmpty(dto.dni, "The dni should not be empty");
+		BusinessCheck.isNotEmpty(dto.name, "The name should not be empty");
+		BusinessCheck.isNotEmpty(dto.surname, "The name should not be empty");
+		BusinessCheck.isNotNull(dto.dni, "The dni should not be null");
+		BusinessCheck.isNotNull(dto.name, "The name should not be null");
+		BusinessCheck.isNotNull(dto.surname, "The surname should not be null");
+
 	}
 
 }

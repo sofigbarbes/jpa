@@ -31,27 +31,33 @@ public class Voucher extends PaymentMean {
 		this.available = available;
 	}
 
-	public String getCode() {
+	public String getCode()
+	{
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(String code)
+	{
 		this.code = code;
 	}
 
-	public double getAvailable() {
+	public double getAvailable()
+	{
 		return available;
 	}
 
-	public void setAvailable(double available) {
+	public void setAvailable(double available)
+	{
 		this.available = available;
 	}
 
-	public String getDescription() {
+	public String getDescription()
+	{
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
 
@@ -61,36 +67,42 @@ public class Voucher extends PaymentMean {
 	 * @throws IllegalStateException if not enough available to pay
 	 */
 	@Override
-	public void pay(double amount) {
-		if (this.available <= amount) {
+	public void pay(double amount)
+	{
+		if (this.available <= amount)
+		{
 			throw new IllegalStateException("Not enough money in the voucher");
-		} else {
+		} else
+		{
 			this.available -= amount;
 			this.accumulated += amount;
 		}
 	}
 
 	@Override
-	public boolean isValid() {
+	public boolean isValid()
+	{
 		return true;
 	}
 
-	public double getDisponible() {
+	public double getDisponible()
+	{
 		return getAvailable();
 	}
 
-	public void setDescripcion(String string) {
+	public void setDescripcion(String string)
+	{
 		setDescription(string);
 	}
 
-	public String getCodigo() {
+	public String getCodigo()
+	{
 		return getCode();
 	}
 
-	public String getDescripcion() {
+	public String getDescripcion()
+	{
 		return getDescription();
 	}
-	
-	
 
 }

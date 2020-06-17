@@ -49,8 +49,9 @@ public interface AssignWorkOrderService {
 	 * @param id of the workOrder
 	 * @return the list. It might be empty if no mechanic is certified for the
 	 *         specified workOrder.
-	 * @throws BusinessException 
+	 * @throws BusinessException
 	 */
-	List<CertificateDto> findCertificatesByWorkOrderId(String woId) throws BusinessException;
+	List<CertificateDto> findCertificatesByWorkOrderId(String woId)
+			throws BusinessException;
 
 }

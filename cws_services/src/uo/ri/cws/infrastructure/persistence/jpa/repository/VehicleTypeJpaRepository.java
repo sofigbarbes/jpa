@@ -13,10 +13,8 @@ public class VehicleTypeJpaRepository extends BaseJpaRepository<VehicleType>
 	@Override
 	public List<VehicleType> findVehicleTypesWithDedication()
 	{
-		return Jpa.getManager()
-				.createNamedQuery("VehicleType.findDedicated", VehicleType.class)
-				.getResultList();
+		return Jpa.getManager().createNamedQuery("VehicleType.findDedicated",
+				VehicleType.class).getResultList();
 	}
-	
 
 }

@@ -5,8 +5,8 @@ import java.util.List;
 import uo.ri.cws.application.service.BusinessException;
 
 /**
- * This service is intended to be used by the Manager
- * It follows the ISP principle (@see SOLID principles from RC Martin)
+ * This service is intended to be used by the Manager It follows the ISP
+ * principle (@see SOLID principles from RC Martin)
  */
 public interface CourseReportService {
 
@@ -15,8 +15,8 @@ public interface CourseReportService {
 	 *
 	 * @param id of the mechanic
 	 *
-	 * @return the list of lines, one for each vehicle type the mechanic
-	 * 	have had some training
+	 * @return the list of lines, one for each vehicle type the mechanic have
+	 *         had some training
 	 *
 	 * @throws BusinessException, DOES NOT
 	 */
@@ -24,11 +24,11 @@ public interface CourseReportService {
 			throws BusinessException;
 
 	/**
-	 * Returns a list of rows, one for each vehicle type and mechanic that had 
+	 * Returns a list of rows, one for each vehicle type and mechanic that had
 	 * attended to a course.
 	 *
-	 * @return the list, that might be empty if no mechanic has been trained
-	 * 		for any vehicle type.
+	 * @return the list, that might be empty if no mechanic has been trained for
+	 *         any vehicle type.
 	 * @throws BusinessException, DOES NOT
 	 */
 	List<TrainingHoursRow> findTrainingByVehicleTypeAndMechanic()

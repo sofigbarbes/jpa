@@ -5,11 +5,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
+import alb.util.date.Dates;
 import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.CourseRepository;
 import uo.ri.cws.application.repository.VehicleTypeRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.training.CourseDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Course;
 import uo.ri.cws.domain.VehicleType;
@@ -27,7 +29,7 @@ public class RegisterCourse implements Command<CourseDto> {
 	@Override
 	public CourseDto execute() throws BusinessException
 	{
-		validateNulls();
+		validate();
 		checkNotInDB();
 		Course course = new Course(dto.code, dto.name, dto.description,
 				dto.startDate, dto.endDate, dto.hours);
@@ -50,42 +52,33 @@ public class RegisterCourse implements Command<CourseDto> {
 	private void checkVehicleTypeInDb(String key) throws BusinessException
 	{
 		Optional<VehicleType> vehicleType = vtRepo.findById(key);
-		if (!vehicleType.isPresent())
-		{
-			throw new BusinessException("The vehicleType with id " + key
-					+ " is not in the database");
-		}
+		BusinessCheck.exists(vehicleType,
+				"The vehicleType with id " + key + " is not in the database");
 
 	}
 
 	private void checkNotInDB() throws BusinessException
 	{
 		Optional<Course> c = courseRepo.findByCode(dto.code);
-		if (c.isPresent())
-		{
-			throw new BusinessException("The course with code " + dto.code
-					+ " is already in the database");
-		}
+		BusinessCheck.isFalse(c.isPresent(), "The course with code " + dto.code
+				+ " is already in the database");
+
 	}
 
-	private void validateNulls() throws BusinessException
+	private void validate() throws BusinessException
 	{
-		if (dto.code == null || dto.code == "")
-		{
-			throw new BusinessException("The dni cant be null or empty");
-		}
-		if (dto.name == null || dto.name == "")
-		{
-			throw new BusinessException("The name cant be null or empty");
-		}
-		if (dto.description == null || dto.description == "")
-		{
-			throw new BusinessException(
-					"The description cant be null or empty");
-		}
-		if (dto.hours < 0)
-		{
-			throw new BusinessException("The hours cant be like that");
-		}
+		BusinessCheck.isNotEmpty(dto.code, "The code cant be empty");
+		BusinessCheck.isNotNull(dto.code, "The code cant be null");
+		BusinessCheck.isNotEmpty(dto.name, "The name cant be empty");
+		BusinessCheck.isNotNull(dto.name, "The name cant be null");
+		BusinessCheck.isNotEmpty(dto.description,
+				"The description cant be empty");
+		BusinessCheck.isNotNull(dto.description,
+				"The description cant be null");
+		BusinessCheck.isTrue(dto.hours >= 0, "The hours cant be negative");
+		BusinessCheck.isTrue(dto.startDate.before(Dates.today()),
+				"Back to the future is not allowed here");
+		BusinessCheck.isTrue(dto.endDate.before(dto.startDate),
+				"Back to the future is not allowed here");
 	}
 }

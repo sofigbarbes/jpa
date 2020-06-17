@@ -15,12 +15,13 @@ public class FindAllVehicleTypes implements Command<List<VehicleTypeDto>> {
 	private VehicleTypeRepository vTypeRepo = Factory.repository
 			.forVehicleType();
 
+	
 	@Override
 	public List<VehicleTypeDto> execute() throws BusinessException
 	{
 		List<VehicleType> vehicleTypes = vTypeRepo.findAll();
 		List<VehicleTypeDto> res = new ArrayList<>();
-		
+
 		for (VehicleType vehicle : vehicleTypes)
 		{
 			VehicleTypeDto dto = new VehicleTypeDto();

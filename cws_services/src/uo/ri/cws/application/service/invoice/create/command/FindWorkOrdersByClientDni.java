@@ -8,6 +8,7 @@ import uo.ri.cws.application.repository.ClientRepository;
 import uo.ri.cws.application.repository.WorkOrderRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.workorder.WorkOrderDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.WorkOrder;
 
@@ -28,13 +29,15 @@ public class FindWorkOrdersByClientDni implements Command<List<WorkOrderDto>> {
 	}
 
 	@Override
-	public List<WorkOrderDto> execute() throws BusinessException {
+	public List<WorkOrderDto> execute() throws BusinessException
+	{
 		validate();
 		List<WorkOrder> workOrders = null;
 		List<WorkOrderDto> res = new ArrayList<WorkOrderDto>();
 
 		workOrders = repo.findNotInvoicedByClientDni(dni);
-		for (WorkOrder w : workOrders) {
+		for (WorkOrder w : workOrders)
+		{
 			WorkOrderDto dto = new WorkOrderDto();
 			dto.date = w.getDate();
 			dto.description = w.getDescription();
@@ -51,9 +54,11 @@ public class FindWorkOrdersByClientDni implements Command<List<WorkOrderDto>> {
 
 	}
 
-	private void validate() throws BusinessException {
-		if (!repoClient.findByDni(dni).isPresent())
-			throw new BusinessException("There is no client with dni " + dni);
+	private void validate() throws BusinessException
+	{
+		BusinessCheck.exists(repoClient.findByDni(dni),
+				"There is no client with dni " + dni);
+
 	}
 
 }

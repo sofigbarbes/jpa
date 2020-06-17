@@ -7,8 +7,8 @@ import java.util.Optional;
 import uo.ri.cws.application.service.BusinessException;
 
 /**
- * This service is intended to be used by the Cashier
- * It follows the ISP principle (@see SOLID principles from RC Martin)
+ * This service is intended to be used by the Cashier It follows the ISP
+ * principle (@see SOLID principles from RC Martin)
  */
 public interface SettleInvoiceService {
 

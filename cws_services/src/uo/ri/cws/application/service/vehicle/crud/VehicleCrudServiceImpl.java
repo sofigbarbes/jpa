@@ -16,13 +16,14 @@ public class VehicleCrudServiceImpl implements VehicleCrudService {
 
 	@Override
 	public Optional<VehicleDto> findVehicleByPlate(String plate)
-			throws BusinessException {
+			throws BusinessException
+	{
 		return executor.execute(new FindVehicleByPlate(plate));
 	}
 
 	@Override
-	public VehicleDto addVehicle(VehicleDto vehicleDto)
-			throws BusinessException {
+	public VehicleDto addVehicle(VehicleDto vehicleDto) throws BusinessException
+	{
 		return executor.execute(new AddVehicle(vehicleDto));
 	}
 

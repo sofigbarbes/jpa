@@ -9,9 +9,9 @@ public class CertificateDto {
 
 	public String id;
 	public Long version;
-	
+
 	public MechanicDto mechanic;
 	public VehicleTypeDto vehicleType;
 	public Date obtainedAt;
-	
+
 }

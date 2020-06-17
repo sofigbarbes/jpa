@@ -2,23 +2,29 @@ package uo.ri.cws.application.service.workorder.crud.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import uo.ri.conf.Factory;
 import uo.ri.cws.application.repository.CertificateRepository;
+import uo.ri.cws.application.repository.WorkOrderRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.mechanic.MechanicDto;
 import uo.ri.cws.application.service.training.CertificateDto;
 import uo.ri.cws.application.service.vehicletype.VehicleTypeDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Certificate;
+import uo.ri.cws.domain.WorkOrder;
 
-public class FindCertificatesByWorkOrderId implements Command<List<CertificateDto>> {
+public class FindCertificatesByWorkOrderId
+		implements Command<List<CertificateDto>> {
 
 	private String workOrderId;
 	private CertificateRepository certRepo = Factory.repository
 			.forCertificate();
 
-	
+	private WorkOrderRepository woRepo = Factory.repository.forWorkOrder();
+
 	public FindCertificatesByWorkOrderId(String id) {
 		this.workOrderId = id;
 	}
@@ -26,6 +32,7 @@ public class FindCertificatesByWorkOrderId implements Command<List<CertificateDt
 	@Override
 	public List<CertificateDto> execute() throws BusinessException
 	{
+		checkInDB();
 		List<CertificateDto> res = new ArrayList<CertificateDto>();
 		List<Certificate> certificates = new ArrayList<Certificate>();
 
@@ -51,6 +58,13 @@ public class FindCertificatesByWorkOrderId implements Command<List<CertificateDt
 		return res;
 	}
 
+	private void checkInDB() throws BusinessException
+	{
+		Optional<WorkOrder> woOp = woRepo.findById(workOrderId);
+		BusinessCheck.exists(woOp,
+				"The workOrder specified is not in the database");
+	}
+
 	private void convertVehicleToDto(VehicleTypeDto vtDto,
 			Certificate certificate)
 	{
@@ -73,6 +87,5 @@ public class FindCertificatesByWorkOrderId implements Command<List<CertificateDt
 		mecDto.version = certificate.getVersion();
 
 	}
-
 
 }

@@ -8,6 +8,7 @@ import uo.ri.cws.application.repository.VehicleRepository;
 import uo.ri.cws.application.repository.WorkOrderRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.workorder.WorkOrderDto;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.WorkOrder;
 
@@ -44,18 +45,18 @@ public class FindWorkOrdersByPlateNumber
 
 	private void validate() throws BusinessException
 	{
-		if (this.plate == null || this.plate.isEmpty())
-		{
-			throw new BusinessException("The plate cannot be null or empty");
-		}
+		BusinessCheck.isNotEmpty(this.plate, "The plate cannot be empty");
+		BusinessCheck.isNotNull(this.plate,
+				"The plate cannot be null or empty");
 		checkInDb();
 	}
 
 	private void checkInDb() throws BusinessException
 	{
-		if (!vehRepo.findByPlate(plate).isPresent())
-			throw new BusinessException("The vehicle with platenumber " + plate
-					+ " is not in the database");
+		BusinessCheck.exists(vehRepo.findByPlate(plate),
+				"The vehicle with platenumber " + plate
+						+ " is not in the database");
+
 	}
 
 }

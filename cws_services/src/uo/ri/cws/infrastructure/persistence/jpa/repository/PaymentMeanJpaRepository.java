@@ -6,12 +6,12 @@ import uo.ri.cws.application.repository.PaymentMeanRepository;
 import uo.ri.cws.domain.PaymentMean;
 import uo.ri.cws.infrastructure.persistence.jpa.util.BaseJpaRepository;
 
-public class PaymentMeanJpaRepository
-		extends BaseJpaRepository<PaymentMean> 
+public class PaymentMeanJpaRepository extends BaseJpaRepository<PaymentMean>
 		implements PaymentMeanRepository {
 
 	@Override
-	public List<PaymentMean> findPaymentMeansByClientId(Long id) {
+	public List<PaymentMean> findPaymentMeansByClientId(Long id)
+	{
 		return null;
 	}
 

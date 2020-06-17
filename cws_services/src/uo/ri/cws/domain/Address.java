@@ -18,21 +18,26 @@ public class Address {
 	public Address() {
 	}
 
-	public String getStreet() {
+	public String getStreet()
+	{
 		return street;
 	}
 
-	public String getCity() {
+	public String getCity()
+	{
 		return city;
 	}
 
-	public String getZipCode() {
+	public String getZipCode()
+	{
 		return zipCode;
 	}
 
 	@Override
-	public String toString() {
-		return "Address [street=" + street + ", city=" + city + ", zipCode=" + zipCode + "]";
+	public String toString()
+	{
+		return "Address [street=" + street + ", city=" + city + ", zipCode="
+				+ zipCode + "]";
 	}
 
 }

@@ -17,4 +17,14 @@ public interface MechanicRepository extends Repository<Mechanic> {
 	 * @return a list with all mechanics (might be empty)
 	 */
 	List<Mechanic> findAll();
+
+	/**
+	 * @return a list with the mechanics enrolled in a course, with passed true.
+	 */
+	List<Mechanic> findEnrolledPassedMechanics();
+
+	/**
+	 * @return a list with the mechanics enrolled in a course
+	 */
+	List<Mechanic> findEnrolledMechanics();
 }

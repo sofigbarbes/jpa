@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -62,11 +63,6 @@ public class Course extends BaseEntity {
 		Argument.isNotNull(endDate);
 		Argument.isTrue(endDate.after(startDate));
 
-	}
-
-	public void setCode(String code)
-	{
-		this.code = code;
 	}
 
 	public void setName(String name)
@@ -141,17 +137,17 @@ public class Course extends BaseEntity {
 
 		int total = 0;
 
-		for (Map.Entry<VehicleType, Integer> dedication : percentages
-				.entrySet())
+		for (Entry<VehicleType, Integer> dedication : percentages.entrySet())
 		{
-			checkExistingDedication(dedication.getKey());
+			checkExistingDedication(vehicleTypes, dedication.getKey());
 			checkPercentageOver100(total, dedication.getValue());
 
 			vehicleTypes.add(dedication.getKey());
 			p.add(dedication.getValue());
 			total += dedication.getValue();
 		}
-		Argument.isTrue(total == 100);
+		Argument.isTrue(total == 100,
+				"The sum of the percentages should be 100");
 
 		for (int i = 0; i < vehicleTypes.size(); i++)
 		{
@@ -169,9 +165,10 @@ public class Course extends BaseEntity {
 		}
 	}
 
-	private void checkExistingDedication(VehicleType key)
+	private void checkExistingDedication(List<VehicleType> vehicleTypes,
+			VehicleType key)
 	{
-		if (this.isDedicatedTo(key))
+		if (vehicleTypes.contains(key))
 		{
 			throw new IllegalStateException(
 					"Dedication cannot be added. Already existing dedication");

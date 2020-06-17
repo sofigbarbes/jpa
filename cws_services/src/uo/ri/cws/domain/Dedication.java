@@ -19,7 +19,6 @@ public class Dedication extends BaseEntity {
 	private Course course;
 	@Column(name = "PERCENTAGE")
 	private int hours;
-	// private int percentage;
 
 	Dedication() {
 	}
@@ -31,27 +30,33 @@ public class Dedication extends BaseEntity {
 		Associations.Dedicate.link(this, vehicleType);
 	}
 
-	public Course getCourse() {
+	public Course getCourse()
+	{
 		return course;
 	}
 
-	void _setCourse(Course course) {
+	void _setCourse(Course course)
+	{
 		this.course = course;
 	}
 
-	void _setVehicleType(VehicleType vehicleType) {
+	void _setVehicleType(VehicleType vehicleType)
+	{
 		this.vehicleType = vehicleType;
 	}
 
-	public VehicleType getVehicleType() {
+	public VehicleType getVehicleType()
+	{
 		return vehicleType;
 	}
 
-	public int getHours() {
+	public int getHours()
+	{
 		return hours;
 	}
 
-	public Integer getPercentage() {
+	public Integer getPercentage()
+	{
 		return hours;
 	}
 

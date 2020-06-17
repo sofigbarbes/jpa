@@ -11,7 +11,7 @@ import uo.ri.cws.domain.Mechanic;
 public class DeleteMechanic implements Command<Void> {
 
 	private String mechanicId;
-	MechanicRepository repo = Factory.repository.forMechanic();
+	private MechanicRepository repo = Factory.repository.forMechanic();
 
 	public DeleteMechanic(String idMecanico) {
 		this.mechanicId = idMecanico;

@@ -12,5 +12,7 @@ public interface RepositoryFactory {
 	VehicleRepository forVehicle();
 	VehicleTypeRepository forVehicleType();
 	CertificateRepository forCertificate();
+	CourseRepository forCourse();
+	EnrollmentRepository forEnrollment();
 
 }

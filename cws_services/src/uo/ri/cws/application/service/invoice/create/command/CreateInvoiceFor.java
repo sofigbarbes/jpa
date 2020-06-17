@@ -10,24 +10,27 @@ import uo.ri.cws.application.service.invoice.InvoiceDto;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Invoice;
 import uo.ri.cws.domain.WorkOrder;
+import uo.ri.cws.domain.WorkOrder.WorkOrderStatus;
 
 public class CreateInvoiceFor implements Command<InvoiceDto> {
 
 	private List<String> workOrderIds;
-	InvoiceRepository repo = Factory.repository.forInvoice();
-	WorkOrderRepository repoWo = Factory.repository.forWorkOrder();
+	private InvoiceRepository repo = Factory.repository.forInvoice();
+	private WorkOrderRepository repoWo = Factory.repository.forWorkOrder();
 
 	public CreateInvoiceFor(List<String> workOrderIds) {
 		this.workOrderIds = workOrderIds;
 	}
 
 	@Override
-	public InvoiceDto execute() throws BusinessException {
+	public InvoiceDto execute() throws BusinessException
+	{
 		validate();
 		Long number = repo.getNextInvoiceNumber();
 
 		Invoice invoice = new Invoice(number);
-		for (String id : workOrderIds) {
+		for (String id : workOrderIds)
+		{
 			WorkOrder w = repoWo.findById(id).get();
 			invoice.addWorkOrder(w);
 		}
@@ -44,13 +47,21 @@ public class CreateInvoiceFor implements Command<InvoiceDto> {
 
 	}
 
-	private void validate() throws BusinessException {
-		for (String id : workOrderIds) {
-			if (!repoWo.findById(id).isPresent()) {
+	private void validate() throws BusinessException
+	{
+		for (String id : workOrderIds)
+		{
+			if (!repoWo.findById(id).isPresent())
+			{
 				throw new BusinessException(
 						"There is no workorder for id " + id);
 			}
-
+			if (repoWo.findById(id).get()
+					.getStatus() != WorkOrderStatus.FINISHED)
+			{
+				throw new BusinessException(
+						"The workorder is not finished yet!");
+			}
 		}
 	}
 

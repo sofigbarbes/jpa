@@ -57,7 +57,7 @@ public class AddDedicationsTests {
 	@Test(expected = IllegalArgumentException.class)
 	public void testDedicationsLessThan100()
 	{
-		HashMap<VehicleType, Integer> percentages = new HashMap<VehicleType, Integer>();
+		Map<VehicleType, Integer> percentages = new HashMap<VehicleType, Integer>();
 		percentages.put(car, 25);
 		percentages.put(truck, 25);
 
@@ -87,13 +87,13 @@ public class AddDedicationsTests {
 	@Test
 	public void testAddMoreDedicationsThrowsException()
 	{
-		HashMap<VehicleType, Integer> percentages = new HashMap<VehicleType, Integer>();
+		Map<VehicleType, Integer> percentages = new HashMap<VehicleType, Integer>();
 		percentages.put(car, 100);
 
 		// Map<VehicleType, Integer> percentages = Map.of(car, 100);
 		course.addDedications(percentages);
 
-		percentages = new HashMap<VehicleType, Integer>();
+		 percentages = new HashMap<VehicleType, Integer>();
 		percentages.put(car, 25);
 		percentages.put(truck, 85);
 		// percentages = Map.of(car, 25, truck, 85);

@@ -4,6 +4,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
+import uo.ri.cws.domain.Certificate;
+
 public class BaseJpaRepository<T> {
 
 	public void add(T t) {
@@ -44,5 +46,6 @@ public class BaseJpaRepository<T> {
 		ParameterizedType superType = (ParameterizedType) getClass().getGenericSuperclass();
 		return (Class<T>) superType.getActualTypeArguments()[0];
 	}
+
 
 }

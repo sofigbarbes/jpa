@@ -14,10 +14,11 @@ import uo.ri.cws.domain.WorkOrder;
 
 public class RemoveWorkOrder implements Command<Void> {
 
-	String id;
+	private String id;
 
-	WorkOrderRepository woRepo = Factory.repository.forWorkOrder();
-	InterventionRepository intRepo = Factory.repository.forIntervention();
+	private WorkOrderRepository woRepo = Factory.repository.forWorkOrder();
+	private InterventionRepository intRepo = Factory.repository
+			.forIntervention();
 
 	public RemoveWorkOrder(String woId) {
 		this.id = woId;
@@ -41,8 +42,10 @@ public class RemoveWorkOrder implements Command<Void> {
 	{
 		List<Intervention> interv = new ArrayList<Intervention>();
 		interv = intRepo.findByWorkOrderId(id);
-		if(interv.size()!=0) {
-			throw new BusinessException("Workorder cannot be deleted: existing interventions");
+		if (interv.size() != 0)
+		{
+			throw new BusinessException(
+					"Workorder cannot be deleted: existing interventions");
 		}
 	}
 

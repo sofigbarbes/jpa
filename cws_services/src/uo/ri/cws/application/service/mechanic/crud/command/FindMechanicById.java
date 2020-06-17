@@ -12,7 +12,7 @@ import uo.ri.cws.domain.Mechanic;
 public class FindMechanicById implements Command<Optional<MechanicDto>> {
 
 	private String id;
-	MechanicRepository repo = Factory.repository.forMechanic();
+	private MechanicRepository repo = Factory.repository.forMechanic();
 
 	public FindMechanicById(String id) {
 		this.id = id;

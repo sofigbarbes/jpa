@@ -22,7 +22,7 @@ public class UpdateMechanicAction implements Action {
 		MechanicCrudService as = Factory.service.forMechanicCrudService();
 
 		Optional<MechanicDto> res = as.findMechanicById(id);
-		if ( ! res.isPresent() /* res.isEmpty() */) {
+		if ( ! res.isPresent() ) {
 			throw new BusinessException("There is no mechanic with that id");
 		}
 		MechanicDto m = res.get();

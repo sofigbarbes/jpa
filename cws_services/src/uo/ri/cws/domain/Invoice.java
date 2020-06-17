@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import alb.util.assertion.Argument;
 import alb.util.date.Dates;
 import uo.ri.cws.domain.WorkOrder.WorkOrderStatus;
 
@@ -43,14 +44,15 @@ public class Invoice extends BaseEntity {
 	}
 
 	public Invoice(Long number) {
+		Argument.isNotNull(number);
+
 		this.number = number;
 		this.date = Dates.now();
 	}
 
 	public Invoice(Long number, Date date) {
-		// check arguments (always), through IllegalArgumentException
-		// store the number
-		// store a copy of the date
+		Argument.isNotNull(number);
+		Argument.isNotNull(date);
 		this.number = number;
 		this.date = new Date(date.getTime());
 	}

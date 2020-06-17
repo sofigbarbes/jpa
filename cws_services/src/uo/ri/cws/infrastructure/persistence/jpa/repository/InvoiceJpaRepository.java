@@ -11,7 +11,6 @@ public class InvoiceJpaRepository extends BaseJpaRepository<Invoice> implements 
 
 	@Override
 	public Optional<Invoice> findByNumber(Long numero) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

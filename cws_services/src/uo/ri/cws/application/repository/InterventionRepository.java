@@ -18,7 +18,7 @@ public interface InterventionRepository extends Repository<Intervention> {
 			Date endDate);
 
 	/**
-	 * Finds interventions for an specific workOrder.
+	 * Finds interventions for a specific workOrder.
 	 * 
 	 * @param id
 	 * @return a list with all the interventions for that workOrder

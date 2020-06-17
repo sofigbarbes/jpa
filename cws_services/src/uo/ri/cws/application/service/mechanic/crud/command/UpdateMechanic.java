@@ -12,7 +12,7 @@ import uo.ri.cws.domain.Mechanic;
 public class UpdateMechanic implements Command<Void> {
 
 	private MechanicDto dto;
-	MechanicRepository repo = Factory.repository.forMechanic();
+	private MechanicRepository repo = Factory.repository.forMechanic();
 
 	public UpdateMechanic(MechanicDto dto) {
 		this.dto = dto;

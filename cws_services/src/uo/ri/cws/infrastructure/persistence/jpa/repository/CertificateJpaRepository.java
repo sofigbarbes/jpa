@@ -1,6 +1,7 @@
 package uo.ri.cws.infrastructure.persistence.jpa.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import uo.ri.cws.application.repository.CertificateRepository;
 import uo.ri.cws.domain.Certificate;
@@ -26,6 +27,17 @@ public class CertificateJpaRepository extends BaseJpaRepository<Certificate>
 				.createNamedQuery("Certificate.findByWorkOrderId",
 						Certificate.class)
 				.setParameter(1, workOrderId).getResultList();
+	}
+
+	@Override
+	public Optional<Certificate> findByMechanicAndVehicleType(String mecId,
+			String vtId)
+	{
+		return Jpa.getManager()
+				.createNamedQuery("Certificate.findByMechanicAndVehicleType",
+						Certificate.class)
+				.setParameter(1, mecId).setParameter(2, vtId).getResultStream()
+				.findFirst();
 	}
 
 }

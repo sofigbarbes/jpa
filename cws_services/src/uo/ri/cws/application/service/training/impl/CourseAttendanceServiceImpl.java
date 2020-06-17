@@ -13,14 +13,12 @@ public class CourseAttendanceServiceImpl implements CourseAttendanceService {
 	@Override
 	public EnrollmentDto registerNew(EnrollmentDto dto) throws BusinessException
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void deleteAttendace(String id) throws BusinessException
 	{
-		// TODO Auto-generated method stub
 
 	}
 
@@ -28,21 +26,18 @@ public class CourseAttendanceServiceImpl implements CourseAttendanceService {
 	public List<EnrollmentDto> findAttendanceByCourseId(String id)
 			throws BusinessException
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<CourseDto> findAllActiveCourses() throws BusinessException
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<MechanicDto> findAllActiveMechanics() throws BusinessException
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 

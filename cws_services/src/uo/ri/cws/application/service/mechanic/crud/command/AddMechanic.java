@@ -11,7 +11,7 @@ import uo.ri.cws.domain.Mechanic;
 
 public class AddMechanic implements Command<MechanicDto> {
 
-	MechanicRepository repo = Factory.repository.forMechanic();
+	private MechanicRepository repo = Factory.repository.forMechanic();
 	private MechanicDto dto;
 
 	public AddMechanic(MechanicDto mecanico) {
@@ -31,7 +31,6 @@ public class AddMechanic implements Command<MechanicDto> {
 	private void checkNotInDB() throws BusinessException
 	{
 		Optional<Mechanic> mec = repo.findByDni(dto.dni);
-		//System.out.println(mec.get().getDni());
 		if (mec.isPresent())
 		{
 			throw new BusinessException("The mechanic with dni " + dto.dni

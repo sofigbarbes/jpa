@@ -11,7 +11,7 @@ import uo.ri.cws.domain.Mechanic;
 
 public class FindAllMechanics implements Command<List<MechanicDto>> {
 
-	MechanicRepository repo = Factory.repository.forMechanic();
+	private MechanicRepository repo = Factory.repository.forMechanic();
 
 	public List<MechanicDto> execute() {
 		List<Mechanic> mechanics = repo.findAll();

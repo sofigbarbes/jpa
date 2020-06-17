@@ -14,8 +14,8 @@ import uo.ri.cws.domain.WorkOrder;
 public class FindWorkOrdersByClientDni implements Command<List<WorkOrderDto>> {
 
 	private String dni;
-	WorkOrderRepository repo = Factory.repository.forWorkOrder();
-	ClientRepository repoClient = Factory.repository.forClient();
+	private WorkOrderRepository repo = Factory.repository.forWorkOrder();
+	private ClientRepository repoClient = Factory.repository.forClient();
 
 	/**
 	 * Find not invoiced workorders of the client with the dni specified as
@@ -39,7 +39,6 @@ public class FindWorkOrdersByClientDni implements Command<List<WorkOrderDto>> {
 			dto.date = w.getDate();
 			dto.description = w.getDescription();
 			dto.id = w.getId();
-			// dto.invoiceId = w.getInvoice().getId();
 			dto.mechanicId = w.getMechanic().getId();
 			dto.status = w.getStatus().name();
 			dto.total = w.getAmount();

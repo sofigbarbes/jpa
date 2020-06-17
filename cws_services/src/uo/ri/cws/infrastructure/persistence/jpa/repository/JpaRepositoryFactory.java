@@ -2,6 +2,8 @@ package uo.ri.cws.infrastructure.persistence.jpa.repository;
 
 import uo.ri.cws.application.repository.CertificateRepository;
 import uo.ri.cws.application.repository.ClientRepository;
+import uo.ri.cws.application.repository.CourseRepository;
+import uo.ri.cws.application.repository.EnrollmentRepository;
 import uo.ri.cws.application.repository.InterventionRepository;
 import uo.ri.cws.application.repository.InvoiceRepository;
 import uo.ri.cws.application.repository.MechanicRepository;
@@ -15,47 +17,56 @@ import uo.ri.cws.application.repository.WorkOrderRepository;
 public class JpaRepositoryFactory implements RepositoryFactory {
 
 	@Override
-	public MechanicRepository forMechanic() {
+	public MechanicRepository forMechanic()
+	{
 		return new MechanicJpaRepository();
 	}
 
 	@Override
-	public WorkOrderRepository forWorkOrder() {
+	public WorkOrderRepository forWorkOrder()
+	{
 		return new WorkOrderJpaRepository();
 	}
 
 	@Override
-	public PaymentMeanRepository forPaymentMean() {
+	public PaymentMeanRepository forPaymentMean()
+	{
 		return new PaymentMeanJpaRepository();
 	}
 
 	@Override
-	public InvoiceRepository forInvoice() {
+	public InvoiceRepository forInvoice()
+	{
 		return new InvoiceJpaRepository();
 	}
 
 	@Override
-	public ClientRepository forClient() {
+	public ClientRepository forClient()
+	{
 		return new ClientJpaRepository();
 	}
 
 	@Override
-	public SparePartRepository forSparePart() {
+	public SparePartRepository forSparePart()
+	{
 		return new SparePartJpaRepository();
 	}
 
 	@Override
-	public InterventionRepository forIntervention() {
+	public InterventionRepository forIntervention()
+	{
 		return new InterventionJpaRepository();
 	}
 
 	@Override
-	public VehicleRepository forVehicle() {
+	public VehicleRepository forVehicle()
+	{
 		return new VehicleJpaRepository();
 	}
 
 	@Override
-	public VehicleTypeRepository forVehicleType() {
+	public VehicleTypeRepository forVehicleType()
+	{
 		return new VehicleTypeJpaRepository();
 	}
 
@@ -63,6 +74,18 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	public CertificateRepository forCertificate()
 	{
 		return new CertificateJpaRepository();
+	}
+
+	@Override
+	public CourseRepository forCourse()
+	{
+		return new CourseJpaRepository();
+	}
+
+	@Override
+	public EnrollmentRepository forEnrollment()
+	{
+		return new EnrollmentJpaRepository();
 	}
 
 }

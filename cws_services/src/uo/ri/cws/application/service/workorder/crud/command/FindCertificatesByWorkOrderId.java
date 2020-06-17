@@ -13,8 +13,6 @@ import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Certificate;
 
 public class FindCertificatesByWorkOrderId implements Command<List<CertificateDto>> {
-	
-	
 
 	private String workOrderId;
 	private CertificateRepository certRepo = Factory.repository

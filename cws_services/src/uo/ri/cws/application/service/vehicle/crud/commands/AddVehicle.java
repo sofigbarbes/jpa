@@ -16,9 +16,9 @@ import uo.ri.cws.domain.VehicleType;
 public class AddVehicle implements Command<VehicleDto> {
 
 	private VehicleDto vehicleDto;
-	VehicleRepository vehRepo = Factory.repository.forVehicle();
-	ClientRepository clientRepo = Factory.repository.forClient();
-	VehicleTypeRepository typeRepo = Factory.repository.forVehicleType();
+	private VehicleRepository vehRepo = Factory.repository.forVehicle();
+	private ClientRepository clientRepo = Factory.repository.forClient();
+	private VehicleTypeRepository typeRepo = Factory.repository.forVehicleType();
 
 	public AddVehicle(VehicleDto vehicleDto) {
 		this.vehicleDto = vehicleDto;

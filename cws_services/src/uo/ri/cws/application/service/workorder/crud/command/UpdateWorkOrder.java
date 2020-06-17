@@ -9,9 +9,9 @@ import uo.ri.cws.domain.WorkOrder;
 
 public class UpdateWorkOrder implements Command<Void> {
 
-	WorkOrderDto dto;
+	private WorkOrderDto dto;
 
-	WorkOrderRepository repo = Factory.repository.forWorkOrder();
+	private WorkOrderRepository repo = Factory.repository.forWorkOrder();
 
 	public UpdateWorkOrder(WorkOrderDto oWo) {
 		this.dto = oWo;

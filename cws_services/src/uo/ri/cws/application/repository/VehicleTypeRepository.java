@@ -8,4 +8,10 @@ public interface VehicleTypeRepository extends Repository<VehicleType> {
 
 	List<VehicleType> findAll();
 
+	/**
+	 * Finds the vehicle types which have a dedication in some course
+	 * @return a list with the vehicle types.
+	 */
+	List<VehicleType> findVehicleTypesWithDedication();
+
 }

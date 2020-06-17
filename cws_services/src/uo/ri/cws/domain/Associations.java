@@ -118,8 +118,6 @@ public class Associations {
 		public static void link(WorkOrder workorder, Intervention intervention, Mechanic mechanic) {
 			intervention._setMechanic(mechanic);
 			intervention._setWorkOrder(workorder);
-//	    workorder._setMechanic(mechanic);
-//	    mechanic._getWorkorders().add(workorder);
 			mechanic._getInterventions().add(intervention);
 			workorder._getInterventions().add(intervention);
 
@@ -130,8 +128,6 @@ public class Associations {
 			Mechanic mechanic = intervention.getMechanic();
 			mechanic._getInterventions().remove(intervention);
 			workOrder._getInterventions().remove(intervention);
-//	    mechanic._getWorkorders().remove(workOrder);
-//	    workOrder._setMechanic(null);
 			intervention._setMechanic(null);
 			intervention._setWorkOrder(null);
 		}

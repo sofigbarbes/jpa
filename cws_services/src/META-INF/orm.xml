@@ -59,6 +59,31 @@
 		</query>
 	</named-query>
 
+	<named-query name="Mechanic.findEnrolledAndPassed">
+		<query>
+			select m 
+			from Mechanic m join Enrollment e
+			where m.id = e.mechanic.id and e.passed=true
+		</query>
+	</named-query>
+
+	<named-query name="Mechanic.findEnrolled">
+		<query>
+			select distinct m 
+			from Mechanic m join Enrollment e
+			where m.id = e.mechanic.id
+		</query>
+	</named-query>
+
+	<!-- Course queries -->
+	<named-query name="Course.findByCode">
+		<query>
+			select c 
+			from Course c
+			where c.code = ?1
+		</query>
+	</named-query>
+
 	<!-- Client queries -->
 	<named-query name="Client.findByDni">
 		<query>
@@ -91,6 +116,70 @@
 		<query>select f from Certificate f join WorkOrder w where w.id = ?1 and
 		w.vehicle.vehicleType.id = f.vehicleType.id</query>
 	</named-query>
+
+	<!-- Enrollment queries -->
+	<named-query name="Enrollment.findByCourseId">
+		<query>
+			select m 
+			from Enrollment m 
+			where m.course.id = ?1
+		</query>
+	</named-query>
+
+	<named-query name="Enrollment.findHoursEnrolled">
+		<query>
+				select SUM (((( c.duration * d.hours ) / 100 ) * e.attendance ) / 100 )
+				from VehicleType v
+					join v.dedications d
+					join d.course c
+					join c.enrollments e
+				where e.passed = true
+					and e.mechanic.id = ?1
+					and d.vehicleType.id = ?2
+					group by v.minTrainingHours
+		</query>
+	</named-query>
+
+
+	<!-- VehicleType queries -->
+	<named-query name="VehicleType.findDedicated">
+		<query>
+			select v 
+			from VehicleType v join Dedication d
+			where v.id = d.vehicleType.id
+		</query>
+	</named-query>
+
+
+	<!-- Certificate queries -->
+	<named-query name="Certificate.getCertificates">
+		<query>
+			<![CDATA[ 
+				select distinct e.mechanic.id, d.vehicleType.id 
+				from Enrollment e 
+					join Course c 
+					join Dedication d 
+					join VehicleType v
+				where d.vehicleType.id=v.id 
+					and d.course.id = c.id 
+					and c.id = e.course.id
+					and (e.attendance * c.duration * d.hours) / 10000 >= v.minTrainingHours
+					and e.passed = true 
+					and (e.mechanic.id, d.vehicleType.id) not in
+						(select c.mechanic.id, c.vehicleType.id from Certificate c)
+			]]> 
+		</query>
+	</named-query>
+
+	<named-query
+		name="Certificate.findByMechanicAndVehicleType">
+		<query>
+			select c
+			from Certificate c 
+			where c.mechanic.id = ?1 and c.vehicleType.id = ?2
+		</query>
+	</named-query>
+
 
 
 	<!-- Use this format if your query has numeric comparisons as the one in 

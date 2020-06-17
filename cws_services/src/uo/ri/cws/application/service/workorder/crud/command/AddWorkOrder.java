@@ -14,9 +14,9 @@ import uo.ri.cws.domain.WorkOrder;
 
 public class AddWorkOrder implements Command<WorkOrderDto> {
 
-	WorkOrderDto dto;
-	VehicleRepository vehRepo = Factory.repository.forVehicle();
-	WorkOrderRepository woRepo = Factory.repository.forWorkOrder();
+	private WorkOrderDto dto;
+	private VehicleRepository vehRepo = Factory.repository.forVehicle();
+	private WorkOrderRepository woRepo = Factory.repository.forWorkOrder();
 
 	public AddWorkOrder(WorkOrderDto dto) {
 		this.dto = dto;
@@ -32,8 +32,6 @@ public class AddWorkOrder implements Command<WorkOrderDto> {
 		WorkOrderDto res = new WorkOrderDto();
 		woRepo.add(w);
 		w = woRepo.findByVehicleAndDescription(dto.vehicleId, dto.description);
-		System.out.println(w.getDescription());
-		System.out.println(w.getId());
 		res.date = w.getDate();
 		res.description = w.getDescription();
 		dto.id = w.getId();

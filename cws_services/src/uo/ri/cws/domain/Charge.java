@@ -5,10 +5,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import alb.util.assertion.Argument;
+import uo.ri.cws.application.util.BusinessCheck;
 import uo.ri.cws.domain.Associations.Charges;
+import uo.ri.cws.domain.Invoice.InvoiceStatus;
 
 @Entity
-@Table(name = "TCHARGES", uniqueConstraints = { @UniqueConstraint(columnNames = { "INVOICE_ID", "PAYMENTMEAN_ID" }) })
+@Table(name = "TCHARGES", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "INVOICE_ID", "PAYMENTMEAN_ID" }) })
 public class Charge extends BaseEntity {
 
 	@ManyToOne
@@ -26,33 +30,36 @@ public class Charge extends BaseEntity {
 		paymentMean.pay(amount);
 		this.invoice = invoice;
 		Charges.link(invoice, this, paymentMean);
-		// store the amount
-		// increment the paymentMean accumulated ( paymentMean.pay( -amount) )
-		// link invoice, this and paymentMean
 	}
 
-	private void validatePaymentDate(PaymentMean paymentMean) {
+	private void validatePaymentDate(PaymentMean paymentMean)
+	{
 		if (!paymentMean.isValid())
 			throw new IllegalStateException("The payment is not valid");
 	}
 
-	public Invoice _getInvoice() {
+	public Invoice _getInvoice()
+	{
 		return invoice;
 	}
 
-	public void _setInvoice(Invoice invoice) {
+	public void _setInvoice(Invoice invoice)
+	{
 		this.invoice = invoice;
 	}
 
-	public void setPaymentMean(PaymentMean paymentMean) {
+	public void setPaymentMean(PaymentMean paymentMean)
+	{
 		this.paymentMean = paymentMean;
 	}
 
-	public double getAmount() {
+	public double getAmount()
+	{
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(double amount)
+	{
 		this.amount = amount;
 	}
 
@@ -61,21 +68,26 @@ public class Charge extends BaseEntity {
 	 *
 	 * @throws IllegalStateException if the invoice is already settled
 	 */
-	public void rewind() {
-		// assert the invoice is not in PAID status
-		// decrement the payment mean accumulated ( paymentMean.pay( -amount) )
-		// unlink invoice, this and paymentMean
+	public void rewind()
+	{
+		Argument.isTrue(this.invoice.getStatus() == InvoiceStatus.PAID,
+				"The invoice is already settled");
+		paymentMean.pay(-amount);
+		Charges.unlink(this);
 	}
 
-	public void _setPaymentMean(PaymentMean paymentMean) {
+	public void _setPaymentMean(PaymentMean paymentMean)
+	{
 		this.paymentMean = paymentMean;
 	}
 
-	public PaymentMean getPaymentMean() {
+	public PaymentMean getPaymentMean()
+	{
 		return this.paymentMean;
 	}
 
-	public Invoice getInvoice() {
+	public Invoice getInvoice()
+	{
 		return this.invoice;
 	}
 

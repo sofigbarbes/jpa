@@ -12,7 +12,7 @@ import uo.ri.cws.domain.WorkOrder;
 
 public class ListUnfinishedWorkOrders implements Command<List<WorkOrderDto>> {
 
-	WorkOrderRepository woRepo = Factory.repository.forWorkOrder();
+	private WorkOrderRepository woRepo = Factory.repository.forWorkOrder();
 
 	@Override
 	public List<WorkOrderDto> execute() throws BusinessException
@@ -26,8 +26,6 @@ public class ListUnfinishedWorkOrders implements Command<List<WorkOrderDto>> {
 			dto.date = w.getDate();
 			dto.description = w.getDescription();
 			dto.id = w.getId();
-			// dto.invoiceId = w.getInvoice().getId();
-			// dto.mechanicId = w.getMechanic().getId();
 			dto.status = w.getStatus().name();
 			dto.total = w.getAmount();
 			dto.vehicleId = w.getVehicle().getId();

@@ -2,15 +2,15 @@ package uo.ri.cws.application.service.training.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 import uo.ri.conf.Factory;
-import uo.ri.cws.application.repository.EnrollmentRepository;
 import uo.ri.cws.application.repository.MechanicRepository;
 import uo.ri.cws.application.repository.VehicleTypeRepository;
 import uo.ri.cws.application.service.BusinessException;
 import uo.ri.cws.application.service.training.TrainingHoursRow;
 import uo.ri.cws.application.util.command.Command;
+import uo.ri.cws.domain.Enrollment;
 import uo.ri.cws.domain.Mechanic;
 import uo.ri.cws.domain.VehicleType;
 
@@ -19,8 +19,6 @@ public class FindTrainingByVehicleTypeAndMechanic
 
 	private VehicleTypeRepository vtypeRepo = Factory.repository
 			.forVehicleType();
-	private EnrollmentRepository enrollRepo = Factory.repository
-			.forEnrollment();
 	private MechanicRepository mecRepo = Factory.repository.forMechanic();
 
 	@Override
@@ -36,14 +34,17 @@ public class FindTrainingByVehicleTypeAndMechanic
 		{
 			for (Mechanic mechanic : mechanics)
 			{
-				Optional<Integer> hoursOptional = enrollRepo.getHoursEnrolled(
-						mechanic.getId(), vehicleType.getId());
-
-				if (hoursOptional.isPresent())
+				Set<Enrollment> enrollments = mechanic
+						.getEnrollmentsFor(vehicleType);
+				if (enrollments.size() > 0)
 				{
+					int hours = 0;
+					for (Enrollment e : enrollments)
+					{
+						hours += e.getAttendedHoursFor(vehicleType);
+					}
 					row = new TrainingHoursRow();
-					row.enrolledHours = Integer
-							.valueOf(String.valueOf(hoursOptional.get()));
+					row.enrolledHours = hours;
 					row.mechanicFullName = mechanic.getName() + " "
 							+ mechanic.getSurname();
 					row.vehicleTypeName = vehicleType.getName();

@@ -26,6 +26,7 @@ public class UpdateCourse implements Command<Void> {
 		checkCanBeUpdated();
 		validate();
 		Course c = courseRepo.findById(dto.id).get();
+		BusinessCheck.hasVersion(c, dto.version);
 		c.setDescription(dto.description);
 		c.setDuration(dto.hours);
 		c.setEndDate(dto.endDate);
@@ -41,6 +42,7 @@ public class UpdateCourse implements Command<Void> {
 	{
 		BusinessCheck.isTrue(dto.startDate.before(Dates.today()),
 				"The course has already started - Can't be modified");
+
 	}
 
 	private void validate() throws BusinessException
